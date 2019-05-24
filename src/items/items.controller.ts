@@ -17,8 +17,8 @@ export class ItemsController {
   }
 
   @Get(':id')
-  getItem(@Param('id') paramId): string {
-    return 'paramId: ' + paramId;
+  getItem(@Param('id') paramId: string): Iitem {
+    return this.itemsService.findOne(paramId);
   }
 
   @Post()

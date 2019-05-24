@@ -28,4 +28,8 @@ export class ItemsService {
     return this.items;
   }
 
+  findOne(id: string): Iitem {
+    return this.items.find(el => el.id === id);
+  }
+
 }
