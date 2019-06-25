@@ -1,26 +1,38 @@
-import { Controller, Get, Post, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, Put } from '@nestjs/common';
 import { IdeaService } from './idea.service';
+import { IdeaDTO } from './idea.dto';
 
 @Controller('idea')
 export class IdeaController {
 
   constructor(
     private ideaService: IdeaService,
-  ){}
+  ) {}
 
   @Get()
-  getList(){}
-
-  @Get(':id')
-  getOne(){}
+  getList() {
+    return this.ideaService.showAll();
+  }
 
   @Post()
-  createIdea(){}
+  createIdea(@Body() data: IdeaDTO) {
+    return this.ideaService.create(data);
+  }
+
+  @Get(':id')
+  getOne(@Param('id') id: string) {
+    return this.ideaService.read(id);
+  }
 
   @Put(':id')
-  updateIdea(){}
+  updateIdea(@Param('id') id: string, @Body() data: Partial<IdeaDTO>) {
+    return this.ideaService.update(id, data);
+  }
 
   @Delete(':id')
-  deleteIdea(){}
+  deleteIdea(@Param('id') id: string) {
+    return this.ideaService.destroy(id);
+
+  }
 
 }
