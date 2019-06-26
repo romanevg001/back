@@ -15,8 +15,14 @@ export class IdeaController {
   }
 
   @Post()
-  createIdea(@Body() data: IdeaDTO) {
-    return this.ideaService.create(data);
+  async createIdea(@Body() data: IdeaDTO) {
+    console.log('createIdea(@Body() data: IdeaDTO)', data);
+
+    if (data.idea) {
+      return this.ideaService.create(data);
+    } else {
+      return {error: "Body is empty: " + JSON.stringify(data)};
+    }
   }
 
   @Get(':id')
