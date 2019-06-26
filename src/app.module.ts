@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ItemsModule } from './items/items.module';
-import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdeaModule } from './idea/idea.module';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpErrorFilter } from './shared/http-error.filter';
 
 @Module({
   imports: [
@@ -16,6 +17,9 @@ import { IdeaModule } from './idea/idea.module';
   controllers: [
     AppController,
   ],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {provide: APP_FILTER, useClass: HttpErrorFilter },
+  ],
 })
 export class AppModule {}
