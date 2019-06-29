@@ -1,18 +1,25 @@
-import { Controller, Get, Query, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Param, Delete, Inject } from '@nestjs/common';
 
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { Iitem } from './interfaces/item.interface';
 
+export class ItemsControllerParent {
+  @Inject()
+  readonly itemsService: ItemsService;
+
+}
+
 @Controller('item')
-export class ItemsController {
+export class ItemsController extends ItemsControllerParent {
   constructor(
-    private readonly itemsService: ItemsService,
-  ) {}
+  ) {
+    super();
+  }
 
   @Get()
   listItems(@Query() sss): Iitem[] {
-   // console.log( sss);
+   // console.log( sss);npm
     return this.itemsService.findAll();
   }
 

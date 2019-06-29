@@ -8,7 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     ItemsModule,
-    MongooseModule.forRoot(),
+   // MongooseModule.forRoot(),
   ],
   controllers: [
     AppController,
