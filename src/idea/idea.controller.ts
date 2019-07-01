@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Delete, Body, Param, Put } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, Put, Logger } from '@nestjs/common';
 import { IdeaService } from './idea.service';
 import { IdeaDTO } from './idea.dto';
 
 @Controller('idea')
 export class IdeaController {
-
+  private logger =  new Logger("IdeaController")
   constructor(
     private ideaService: IdeaService,
   ) {}
@@ -16,8 +16,7 @@ export class IdeaController {
 
   @Post()
   async createIdea(@Body() data: IdeaDTO) {
-    console.log('createIdea(@Body() data: IdeaDTO)', data);
-
+    this.logger.log(JSON.stringify(data));
     if (data.idea) {
       return this.ideaService.create(data);
     } else {
@@ -32,6 +31,7 @@ export class IdeaController {
 
   @Put(':id')
   updateIdea(@Param('id') id: string, @Body() data: Partial<IdeaDTO>) {
+    this.logger.log(JSON.stringify(data));
     return this.ideaService.update(id, data);
   }
 

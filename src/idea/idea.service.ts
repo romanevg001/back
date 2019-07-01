@@ -38,7 +38,7 @@ export class IdeaService {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
     await this.ideaRepository.update({ id }, data);
-    return idea;
+    return await this.ideaRepository.findOne({where: {id}});
 
   }
 
