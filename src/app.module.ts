@@ -8,12 +8,14 @@ import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 import { ValidationPipe } from './shared/validation.pipe';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     ItemsModule,
     TypeOrmModule.forRoot(),
     IdeaModule,
+    UserModule,
    // MongooseModule.forRoot(),
   ],
   controllers: [
