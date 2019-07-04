@@ -1,15 +1,23 @@
-import { Controller, Get, Post, Delete, Body, Param, Put, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, Put, Logger, UseGuards } from '@nestjs/common';
 import { IdeaService } from './idea.service';
 import { IdeaDTO } from './idea.dto';
 import { IdeaEntity } from './idea.entity';
 import { GetByIdPipe } from '../shared/get-by-id.pipe';
+import { AuthGuard } from 'src/shared/auth.guard';
+import { User } from '../user/user.decorator';
 
-@Controller('idea')
+@Controller('api/ideas')
 export class IdeaController {
-  private logger =  new Logger("IdeaController")
+  private logger =  new Logger('IdeaController');
   constructor(
     private ideaService: IdeaService,
   ) {}
+
+  private logDate(options: any) {
+    options.user && this.logger.log('USER ' + JSON.stringify(options.user));
+    options.data && this.logger.log('DATA ' + JSON.stringify(options.body));
+    options.id && this.logger.log('IDEA ' + JSON.stringify(options.id));
+  }
 
   @Get()
   getList() {
@@ -17,12 +25,13 @@ export class IdeaController {
   }
 
   @Post()
-  async createIdea(@Body() data: IdeaDTO) {
-    this.logger.log(JSON.stringify(data));
+  @UseGuards(new AuthGuard())
+  async createIdea(@User('id') user, @Body() data: IdeaDTO) {
+    this.logDate({user, data});
     if (data.idea) {
-      return this.ideaService.create(data);
+      return this.ideaService.create(user, data);
     } else {
-      return {error: "Body is empty: " + JSON.stringify(data)};
+      return {error: 'Body is empty: ' + JSON.stringify(data)};
     }
   }
 
