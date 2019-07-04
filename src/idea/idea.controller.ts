@@ -1,6 +1,8 @@
 import { Controller, Get, Post, Delete, Body, Param, Put, Logger } from '@nestjs/common';
 import { IdeaService } from './idea.service';
 import { IdeaDTO } from './idea.dto';
+import { IdeaEntity } from './idea.entity';
+import { GetByIdPipe } from '../shared/get-by-id.pipe';
 
 @Controller('idea')
 export class IdeaController {
@@ -25,13 +27,12 @@ export class IdeaController {
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string) {
-    return this.ideaService.read(id);
+  getOne(@Param('id', GetByIdPipe) idea: string) {
+    return idea;
   }
 
   @Put(':id')
   updateIdea(@Param('id') id: string, @Body() data: Partial<IdeaDTO>) {
-    this.logger.log(JSON.stringify(data));
     return this.ideaService.update(id, data);
   }
 

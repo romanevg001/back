@@ -1,6 +1,8 @@
-import { Controller, Post, Get, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDTO } from './user.dto';
+import { AuthGuard } from 'src/shared/auth.guard';
+import { User } from './user.decorator';
 
 @Controller()
 export class UserController {
@@ -9,14 +11,13 @@ export class UserController {
     private userService: UserService,
   ) {}
 
-  @Get('api/user')
+  @Get('api/users')
   showAllUsers() {
     return this.userService.showAll();
   }
 
   @Post('login')
   login(@Body() data: UserDTO) {
-    
     return this.userService.login(data);
 
   }
