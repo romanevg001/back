@@ -57,7 +57,10 @@ export class IdeaService {
     }
     this.ensureOwnership(idea, userId);
     await this.ideaRepository.update({ id }, data);
-    idea =  await this.ideaRepository.findOne({where: {id}});
+    idea =  await this.ideaRepository.findOne({
+      where: {id},
+      relations: ['author'],
+    });
     return this.toResponseObject(idea);
 
   }
@@ -68,7 +71,7 @@ export class IdeaService {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
     await this.ideaRepository.delete({ id });
-    return idea;
+    return this.toResponseObject(idea);
   }
 
 }
