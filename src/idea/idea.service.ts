@@ -52,9 +52,11 @@ export class IdeaService {
     return idea;
   }
 
-  async showAll(): Promise<IdeaRO[]> {
+  async showAll(page: number = 1): Promise<IdeaRO[]> {
     const ideas = await this.ideaRepository.find({
       relations: ['author', 'upvotes', 'downvotes', 'comments'],
+      take: 25,
+      skip: 25 * (page - 1 ),
     });
     return ideas.map(idea => this.toResponseObject(idea));
   }
