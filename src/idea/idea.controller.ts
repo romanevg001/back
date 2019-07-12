@@ -23,6 +23,11 @@ export class IdeaController {
     return this.ideaService.showAll(page);
   }
 
+  @Get('/newest')
+  showNewestIdeas(@Query('page') page: number) {
+    return this.ideaService.showAll(page, true);
+  }
+
   @Post()
   @UseGuards(new AuthGuard())
   async createIdea(@User('id') userId, @Body() data: IdeaDTO) {
