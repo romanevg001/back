@@ -4,6 +4,5 @@ export class CommentDTO {
 
   @IsString()
   comment: string;
-  
-}
 
+}
