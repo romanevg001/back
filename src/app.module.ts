@@ -16,6 +16,7 @@ import { CommentModule } from './comment/comment.module';
   imports: [
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
+      context: ({req}) => ({ headers: req.headers }),
     }),
     TypeOrmModule.forRoot(),
     ItemsModule,
