@@ -12,5 +12,5 @@ type Query {
 
 type Mutation {
   createComment(idea: ID!, comment: String!): Comment
-  deketeComment(id: ID!): Comment
+  deleteComment(id: ID!): Comment
 }
