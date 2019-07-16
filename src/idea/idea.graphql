@@ -1,6 +1,6 @@
 type Idea {
   id: ID
-  uodated: String!
+  updated: String!
   created: String!
   idea: String!
   description: String!
