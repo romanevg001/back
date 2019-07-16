@@ -99,7 +99,7 @@ export class IdeaService {
 
   }
 
-  async destroy(id: string, userId: string) {
+  async destroy(id: string) {
     const idea = await this.ideaRepository.findOne({where: {id}, relations: ['author', 'comments']});
     if (!idea) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
