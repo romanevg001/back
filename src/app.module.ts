@@ -11,6 +11,8 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
 import { ValidationPipe } from './shared/validation.pipe';
 import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
+import { DictionaryModule } from './dictionaries/dictionary.module';
+import { BoxModule } from './box/box.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { CommentModule } from './comment/comment.module';
     IdeaModule,
     UserModule,
     CommentModule,
+    DictionaryModule,
+    BoxModule,
    // MongooseModule.forRoot(),
   ],
   controllers: [
