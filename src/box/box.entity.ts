@@ -15,7 +15,7 @@ export class BoxEntity {
   @Column('text')
   name: string;
 
-  @Column('text')
+  @Column('int')
   views: number;
 
 }

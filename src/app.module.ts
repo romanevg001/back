@@ -13,6 +13,7 @@ import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
 import { DictionaryModule } from './dictionaries/dictionary.module';
 import { BoxModule } from './box/box.module';
+import { PsrobjectModule } from './psrobject/psrobject.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { BoxModule } from './box/box.module';
     CommentModule,
     DictionaryModule,
     BoxModule,
+    PsrobjectModule,
    // MongooseModule.forRoot(),
   ],
   controllers: [

@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Delete, Body, Param, Put, Logger, UseGuards, Query } from '@nestjs/common';
 import { DictionaryService } from './dictionary.service';
 import { RegionDTO } from './regions/region.dto';
+import { DepartmentDTO } from './departments/department.dto';
 import { AuthGuard } from 'src/shared/auth.guard';
 
 @Controller('api')
@@ -17,6 +18,16 @@ export class DictionaryController {
   @Post('/regions')
   setRegions(@Body() data: RegionDTO ) {
     return this.dictionaryService.setRegions(data);
+  }
+
+  @Get('/department')
+  getDepartment() {
+    return this.dictionaryService.getDepartment();
+  }
+
+  @Post('/department')
+  setDepartment(@Body() data: DepartmentDTO ) {
+    return this.dictionaryService.setDepartment(data);
   }
 
 }
