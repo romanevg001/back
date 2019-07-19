@@ -14,7 +14,7 @@ import { CommentModule } from './comment/comment.module';
 import { DictionaryModule } from './dictionaries/dictionary.module';
 import { BoxModule } from './box/box.module';
 import { PsrobjectModule } from './psrobject/psrobject.module';
-// import { FileModule } from './file/file.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { PsrobjectModule } from './psrobject/psrobject.module';
     DictionaryModule,
     BoxModule,
     PsrobjectModule,
-    // FileModule,
+    FileModule,
    // MongooseModule.forRoot(),
   ],
   controllers: [
