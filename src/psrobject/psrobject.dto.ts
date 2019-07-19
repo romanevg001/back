@@ -1,9 +1,48 @@
-import {IsString} from 'class-validator';
+import {IsString, IsInt, IsArray, IsBoolean, IsNotEmpty, IsEmpty} from 'class-validator';
 
 export class PsrobjectDTO {
   @IsString()
-  name: string;
+  title: string;
 
+  // @IsString()
+  // image: string;
+
+  // @IsString()
+  // type: string;
+
+  // @IsInt()
+  // region: number;
+
+  // @IsString()
+  // choiceJustification: string;
+
+  // @IsArray()
+  // tags: string[];
+
+  
+  // hidden: boolean;
+
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export class PsrobjectRS extends PsrobjectDTO {
+  @IsString()
+  departmentId: string;
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export class PsrobjectRQ {
+  id?: string;
+  created: Date;
+  updated: Date;
+  title: string;
+  // image: string;
+  // type: string;
+  // region: number;
+  // choiceJustification: string;
+  // tags: string[];
+  // hidden: boolean;
+  departmentId: string;
 }
 
 // private Integer id;

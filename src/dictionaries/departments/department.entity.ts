@@ -9,8 +9,7 @@ export class DepartmentEntity {
   @Column('text')
   name: string;
 
-  @PrimaryGeneratedColumn()
-  @OneToMany(type => PsrobjectEntity, department => department.department)
-  code: string;
+  @OneToMany(type => PsrobjectEntity, psrobjectEntity => psrobjectEntity.department)
+  psrobjects: PsrobjectEntity[];
 
 }

@@ -2,7 +2,6 @@ import { Controller, Get, Post, Delete, Body, Param, Put, Logger, UseGuards, Que
 import { DictionaryService } from './dictionary.service';
 import { RegionDTO } from './regions/region.dto';
 import { DepartmentDTO } from './departments/department.dto';
-import { AuthGuard } from 'src/shared/auth.guard';
 
 @Controller('api')
 export class DictionaryController {

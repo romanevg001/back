@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, JoinTable, ManyToMany, ManyToOne, UpdateDateColumn, OneToMany} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
 @Entity('region')
 export class RegionEntity {

@@ -8,12 +8,12 @@ import { RegionDTO } from './regions/region.dto';
 import { DepartmentEntity } from './departments/department.entity';
 import { DepartmentDTO } from './departments/department.dto';
 
-
 @Injectable()
 export class DictionaryService {
   constructor(
     @InjectRepository(RegionEntity)
     private regionRepository: Repository<RegionEntity>,
+    @InjectRepository(DepartmentEntity)
     private departmentRepository: Repository<DepartmentEntity>,
   ) {
   }
@@ -28,9 +28,9 @@ export class DictionaryService {
      return data;
   }
 
-
   async getDepartment() {
     const data = await this.departmentRepository.find();
+    console.log('getDepartment====== ', data);
     return data;
   }
 
