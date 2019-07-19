@@ -32,10 +32,13 @@ export class PsrobjectService {
 
   async update(id: string, data: PsrobjectRQ): Promise<PsrobjectDTO> {
     let psrobject = await this.psrobjectRepository.findOne({where: {id}, relations: ['department']});
-    if (!psrobject) {
+    const department = await this.departmentRepository.findOne({where: {id: data.departmentId}});
+
+    console.log('=============psrobject============', psrobject);
+    if (!psrobject || !department) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
-    await this.psrobjectRepository.update(id, data);
+    await this.psrobjectRepository.update(id, {...data, department});
     psrobject = await this.psrobjectRepository.findOne({where: {id}, relations: ['department']});
     return psrobject;
   }

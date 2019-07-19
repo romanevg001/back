@@ -25,13 +25,13 @@ export class PsrobjectDTO {
 }
 
 // tslint:disable-next-line:max-classes-per-file
-export class PsrobjectRS extends PsrobjectDTO {
+export class PsrobjectRQ extends PsrobjectDTO {
   @IsString()
   departmentId: string;
 }
 
 // tslint:disable-next-line:max-classes-per-file
-export class PsrobjectRQ {
+export class PsrobjectRS {
   id?: string;
   created: Date;
   updated: Date;
