@@ -60,7 +60,7 @@ export class IdeaController {
     @Param('id') id: string,
     @User('id') user: string,
   ) {
-    return this.ideaService.destroy(id, user);
+    return this.ideaService.destroy(id);
   }
 
   @Post(':id/upvote')

@@ -4,22 +4,17 @@ export class PsrobjectDTO {
   @IsString()
   title: string;
 
-  // @IsString()
-  // image: string;
+  @IsString()
+  image: string;
 
   // @IsString()
   // type: string;
 
-  // @IsInt()
-  // region: number;
-
-  // @IsString()
-  // choiceJustification: string;
+  @IsString()
+  choiceJustification: string;
 
   // @IsArray()
   // tags: string[];
-
-  
   // hidden: boolean;
 
 }
@@ -27,7 +22,11 @@ export class PsrobjectDTO {
 // tslint:disable-next-line:max-classes-per-file
 export class PsrobjectRQ extends PsrobjectDTO {
   @IsString()
+  regionId: string;
+
+  @IsString()
   departmentId: string;
+
 }
 
 // tslint:disable-next-line:max-classes-per-file
@@ -36,12 +35,12 @@ export class PsrobjectRS {
   created: Date;
   updated: Date;
   title: string;
-  // image: string;
+  image: string;
   // type: string;
-  // region: number;
-  // choiceJustification: string;
+  choiceJustification: string;
   // tags: string[];
   // hidden: boolean;
+  regionId: string;
   departmentId: string;
 }
 

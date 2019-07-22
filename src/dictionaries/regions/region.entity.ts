@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm';
+import { PsrobjectEntity} from '../../psrobject/psrobject.entity';
 
 @Entity('region')
 export class RegionEntity {
@@ -10,5 +11,8 @@ export class RegionEntity {
 
   @Column('text')
   code: string;
+
+  @OneToMany(type => PsrobjectEntity, psrobjectEntity => psrobjectEntity.region)
+  psrobjects: PsrobjectEntity[];
 
 }

@@ -37,4 +37,9 @@ export class PsrobjectController {
     return this.psrobjectService.update(id, data);
   }
 
+  @Delete(':id')
+  destroy(@Param('id') id: string ) {
+    return this.psrobjectService.destroy(id);
+  }
+
 }

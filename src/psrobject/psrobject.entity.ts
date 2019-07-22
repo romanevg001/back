@@ -2,6 +2,7 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, JoinTable, ManyToMany, ManyToOne, UpdateDateColumn, OneToMany} from 'typeorm';
 
 import { DepartmentEntity} from '../dictionaries/departments/department.entity';
+import { RegionEntity} from '../dictionaries/regions/region.entity';
 
 @Entity('psrobject')
 export class PsrobjectEntity {
@@ -18,17 +19,17 @@ export class PsrobjectEntity {
   @Column('text')
   title: string;
 
-  // @Column('text')
-  // image: string;
+  @Column('text')
+  image: string;
 
   // @Column('text')
   // type: string;
 
-  // @Column('int')
-  // region: number;
+  @ManyToOne(type => RegionEntity, region => region.psrobjects)
+  region: RegionEntity;
 
-  // @Column('text')
-  // choiceJustification: string;
+  @Column('text')
+  choiceJustification: string;
 
   // @Column('simple-array')
   // tags: string[];
@@ -39,7 +40,7 @@ export class PsrobjectEntity {
   // })
   // hidden: boolean;
 
-  @ManyToOne(type => DepartmentEntity, psrobject => psrobject.psrobjects)
+  @ManyToOne(type => DepartmentEntity, department => department.psrobjects)
   department: DepartmentEntity;
 
 }
