@@ -1,4 +1,4 @@
-import {IsString, IsInt, IsArray, IsBoolean, IsNotEmpty, IsEmpty} from 'class-validator';
+import {IsString, IsInt, IsArray, IsBoolean, IsNotEmpty, IsEmpty, IsBooleanString} from 'class-validator';
 
 export class PsrobjectDTO {
   @IsString()
@@ -7,15 +7,11 @@ export class PsrobjectDTO {
   @IsString()
   image: string;
 
-  // @IsString()
-  // type: string;
-
   @IsString()
   choiceJustification: string;
 
-  // @IsArray()
-  // tags: string[];
-  // hidden: boolean;
+  @IsBooleanString()
+  hidden: boolean;
 
 }
 
@@ -26,6 +22,12 @@ export class PsrobjectRQ extends PsrobjectDTO {
 
   @IsString()
   departmentId: string;
+
+  @IsArray()
+  tagsId: string[];
+
+  @IsString()
+  typeId: string;
 
 }
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards, Body, Delete, Post, UsePipes, Query } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards, Body, Delete, Post, Put, Query } from '@nestjs/common';
 import { PsrobjectService } from './psrobject.service';
 import { PsrobjectRQ } from './psrobject.dto';
 import { AuthGuard } from 'src/shared/auth.guard';
@@ -27,7 +27,7 @@ export class PsrobjectController {
     return this.psrobjectService.create(data);
   }
 
-  @Post(':id')
+  @Put(':id')
   // @UseGuards(new AuthGuard())
   update(
     @Param('id') id: string,
@@ -38,6 +38,7 @@ export class PsrobjectController {
   }
 
   @Delete(':id')
+  // @UseGuards(new AuthGuard())
   destroy(@Param('id') id: string ) {
     return this.psrobjectService.destroy(id);
   }

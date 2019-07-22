@@ -15,6 +15,8 @@ import { DictionaryModule } from './dictionaries/dictionary.module';
 import { BoxModule } from './box/box.module';
 import { PsrobjectModule } from './psrobject/psrobject.module';
 import { FileModule } from './file/file.module';
+import { TagModule } from './tag/tag.module';
+import { TypeModule } from './type/type.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { FileModule } from './file/file.module';
     BoxModule,
     PsrobjectModule,
     FileModule,
+    TagModule,
+    TypeModule,
    // MongooseModule.forRoot(),
   ],
   controllers: [

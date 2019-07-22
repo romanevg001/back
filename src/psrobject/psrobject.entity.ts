@@ -3,6 +3,8 @@ import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, JoinTable, Man
 
 import { DepartmentEntity} from '../dictionaries/departments/department.entity';
 import { RegionEntity} from '../dictionaries/regions/region.entity';
+import { TagEntity} from '../tag/tag.entity';
+import { TypeEntity} from '../type/type.entity';
 
 @Entity('psrobject')
 export class PsrobjectEntity {
@@ -22,8 +24,8 @@ export class PsrobjectEntity {
   @Column('text')
   image: string;
 
-  // @Column('text')
-  // type: string;
+  @ManyToOne(type => TypeEntity, type => type.psrobjects)
+  type: TypeEntity;
 
   @ManyToOne(type => RegionEntity, region => region.psrobjects)
   region: RegionEntity;
@@ -31,14 +33,15 @@ export class PsrobjectEntity {
   @Column('text')
   choiceJustification: string;
 
-  // @Column('simple-array')
-  // tags: string[];
+  @ManyToMany(type => TagEntity, tag => tag.psrobjects)
+  @JoinTable()
+  tags: TagEntity[];
 
-  // @Column({
-  //   type: 'boolean',
-  //   default: false,
-  // })
-  // hidden: boolean;
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  hidden: boolean;
 
   @ManyToOne(type => DepartmentEntity, department => department.psrobjects)
   department: DepartmentEntity;
