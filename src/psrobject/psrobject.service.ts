@@ -76,7 +76,7 @@ export class PsrobjectService {
   }
 
   async destroy(id: string): Promise<PsrobjectDTO> {
-     const psrobject = await this.psrobjectRepository.findOne({where: {id}, relations: ['department', 'region', 'tags', 'type']});
+     const psrobject = await this.psrobjectRepository.findOne({where: {id}});
      await this.psrobjectRepository.remove(psrobject);
      return psrobject;
   }

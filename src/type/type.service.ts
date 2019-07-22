@@ -33,7 +33,7 @@ export class TypeService {
   }
 
   async destroy(id: string) {
-    const type = await this.typeRepository.findOne({where: {id}, relations: ['psrobjects']});
+    const type = await this.typeRepository.findOne({where: {id}});
     await this.typeRepository.remove(type);
     return type;
  }
