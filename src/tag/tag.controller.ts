@@ -11,12 +11,12 @@ export class TagController {
   ) {}
 
   @Get()
-  getTages() {
-    return this.tagService.getTages();
+  readList() {
+    return this.tagService.readList();
   }
 
   @Get(':id')
-  getTag(@Param('id') id: string) {
+  read(@Param('id') id: string) {
     return this.tagService.read(id);
   }
 
@@ -27,7 +27,7 @@ export class TagController {
   }
 
   @Delete(':id')
-  removeTag(@Param('id') id: string) {
+  destroy(@Param('id') id: string) {
     return this.tagService.destroy(id);
   }
 

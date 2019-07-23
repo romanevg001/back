@@ -19,7 +19,7 @@ export class DictionaryService {
   }
 
   async readRegions() {
-    const regions = await this.regionRepository.find();
+    const regions = await this.regionRepository.find({relations: ['psrObjects']});
     return regions;
   }
 
@@ -35,7 +35,7 @@ export class DictionaryService {
  }
 
   async readDepartments() {
-    const data = await this.departmentRepository.find();
+    const data = await this.departmentRepository.find({relations: ['psrObjects']});
     return data;
   }
 

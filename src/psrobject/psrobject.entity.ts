@@ -25,10 +25,10 @@ export class PsrobjectEntity {
   @Column('text')
   image: string;
 
-  @ManyToOne(type => TypeEntity, type => type.psrobjects)
+  @ManyToOne(type => TypeEntity, type => type.psrObjects)
   type: TypeEntity;
 
-  @ManyToOne(type => RegionEntity, region => region.psrobjects)
+  @ManyToOne(type => RegionEntity, region => region.psrObjects)
   region: RegionEntity;
 
   @Column('text')

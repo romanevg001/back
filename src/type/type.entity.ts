@@ -10,7 +10,7 @@ export class TypeEntity {
   @Column('text')
   name: string;
 
-  @OneToMany(type => PsrobjectEntity, psrobjectEntity => psrobjectEntity.type)
-  psrobjects: PsrobjectEntity[];
+  @OneToMany(type => PsrobjectEntity, psrObjects => psrObjects.type)
+  psrObjects: PsrobjectEntity[];
 
 }

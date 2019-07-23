@@ -13,6 +13,6 @@ export class RegionEntity {
   code: string;
 
   @OneToMany(type => PsrobjectEntity, psrobjectEntity => psrobjectEntity.region)
-  psrobjects: PsrobjectEntity[];
+  psrObjects: PsrobjectEntity[];
 
 }

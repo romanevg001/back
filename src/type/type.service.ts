@@ -15,7 +15,7 @@ export class TypeService {
 
   async getTypes(page: number = 1) {
     const types = await this.typeRepository.find({
-      relations: ['psrobjects'],
+      relations: ['psrObjects'],
       take: 25,
       skip: 25 * (page - 1 ),
     });
@@ -23,7 +23,7 @@ export class TypeService {
   }
 
   async read(id: string) {
-    const type = await this.typeRepository.findOne({where: {id}, relations: ['psrobjects']});
+    const type = await this.typeRepository.findOne({where: {id}, relations: ['psrObjects']});
     return type;
   }
 

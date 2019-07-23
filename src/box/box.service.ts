@@ -20,6 +20,7 @@ export class BoxService {
 
   async readList(page: number = 1) {
     const boxes = await this.boxRepository.find({
+      relations: ['psrObjects'],
       take: 25,
       skip: 25 * (page - 1 ),
     });
@@ -27,7 +28,7 @@ export class BoxService {
   }
 
   async read(id: string) {
-    const box = await this.boxRepository.findOne({where: {id}});
+    const box = await this.boxRepository.findOne({where: {id}, relations: ['psrObjects']});
     return box;
   }
 

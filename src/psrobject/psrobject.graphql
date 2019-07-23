@@ -1,0 +1,14 @@
+type Psrobject {
+  id: ID
+  title: String!
+  image: String!
+  created: String!
+  choiceJustification: String!
+  tags: [Tag!]
+}
+
+type Query {
+  psrobjects(page: Int): [Psrobject!]
+  psrobject(id: ID): Psrobject!
+
+}

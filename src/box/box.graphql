@@ -1,0 +1,12 @@
+type Box {
+  id: ID
+  created: String!
+  name: String!
+  views: Int!
+  psrObjects: [Psrobject!]!
+}
+
+type Query {
+  boxes(page: Int): [Box!]
+
+}

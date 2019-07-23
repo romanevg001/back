@@ -1,0 +1,11 @@
+type Tag {
+  id: ID
+  name: String!
+  created: String!
+  psrObjects: [Psrobject!]
+}
+
+type Query {
+  tags(page: Int): [Tag!]
+
+}
