@@ -33,7 +33,7 @@ export class PsrobjectEntity {
   @Column('text')
   choiceJustification: string;
 
-  @ManyToMany(type => TagEntity, tag => tag.psrobjects)
+  @ManyToMany(type => TagEntity, {cascade: true})
   @JoinTable()
   tags: TagEntity[];
 

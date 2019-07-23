@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { PsrobjectEntity } from './psrobject.entity';
-import { PsrobjectDTO, PsrobjectRS, PsrobjectRQ } from './psrobject.dto';
+import { PsrobjectDTO, PsrobjectRQ } from './psrobject.dto';
 import { DepartmentEntity} from '../dictionaries/departments/department.entity';
 import { RegionEntity} from '../dictionaries/regions/region.entity';
 import { TagEntity} from '../tag/tag.entity';
@@ -39,23 +39,31 @@ export class PsrobjectService {
     return item;
   }
 
-  async update(id: string, data: PsrobjectRQ): Promise<PsrobjectDTO> {
+  async update(id: string, data: Partial<PsrobjectRQ>): Promise<PsrobjectDTO> {
+    let updatedData: any = data;
     let psrobject = await this.psrobjectRepository.findOne({where: {id}, relations: ['department', 'region', 'tags', 'type']});
-    const department = await this.departmentRepository.findOne({where: {id: data.departmentId}});
-    const region = await this.regionRepository.findOne({where: {id: data.regionId}});
-    const tagsId = data.tagsId.map(el => ({'id': el}));
-    const tags = await this.tagRepository.find({where: tagsId});
-    const type = await this.typeRepository.findOne({where: {id: data.typeId}});
-
-    if (!psrobject || !department || !region || !tags || !type) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    if (data.departmentId) {
+      const department = await this.departmentRepository.findOne({where: {id: data.departmentId}});
+      updatedData = {...updatedData, department};
+      delete updatedData.departmentId;
+    }
+    if (data.regionId) {
+      const region = await this.regionRepository.findOne({where: {id: data.regionId}});
+      updatedData = {...updatedData, region};
+      delete updatedData.regionId;
+    }
+    if (data.tagsId) {
+      const tags = await this.tagRepository.find({where: data.tagsId.map(el => ({'id': el}))});
+      updatedData = {...updatedData, tags};
+      delete updatedData.tagsId;
+    }
+    if (data.typeId) {
+      const type = await this.typeRepository.findOne({where: {id: data.typeId}});
+      updatedData = {...updatedData, type};
+      delete updatedData.typeId;
     }
 
-    delete data.departmentId;
-    delete data.regionId;
-    delete data.tagsId;
-    delete data.typeId;
-    await this.psrobjectRepository.update(id, {...data, department, region, tags, type});
+    await this.psrobjectRepository.update(id, updatedData);
 
     psrobject = await this.psrobjectRepository.findOne({where: {id}, relations: ['department', 'region', 'tags', 'type']});
     return psrobject;

@@ -16,7 +16,7 @@ export class TagEntity {
   @Column('text')
   name: string;
 
-  @ManyToMany(type => PsrobjectEntity, psrobjectEntity => psrobjectEntity.tags)
+  @ManyToMany(type => PsrobjectEntity, {cascade: true})
   psrobjects: PsrobjectEntity[];
 
 }

@@ -31,7 +31,7 @@ export class PsrobjectController {
   // @UseGuards(new AuthGuard())
   update(
     @Param('id') id: string,
-    @Body() data: PsrobjectRQ,
+    @Body() data: Partial<PsrobjectRQ>,
   ) {
     console.log('===============update==============', id, data)
     return this.psrobjectService.update(id, data);
