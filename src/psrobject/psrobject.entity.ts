@@ -5,6 +5,7 @@ import { DepartmentEntity} from '../dictionaries/departments/department.entity';
 import { RegionEntity} from '../dictionaries/regions/region.entity';
 import { TagEntity} from '../tag/tag.entity';
 import { TypeEntity} from '../type/type.entity';
+import { BoxEntity} from '../box/box.entity';
 
 @Entity('psrobject')
 export class PsrobjectEntity {
@@ -46,5 +47,7 @@ export class PsrobjectEntity {
   @ManyToOne(type => DepartmentEntity, department => department.psrobjects)
   department: DepartmentEntity;
 
+  @ManyToOne(type => BoxEntity, boxes => boxes.psrObjects)
+  boxes: BoxEntity;
 }
 

@@ -1,5 +1,5 @@
-
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, JoinTable, ManyToMany, ManyToOne, UpdateDateColumn, OneToMany} from 'typeorm';
+import { PsrobjectEntity} from '../psrobject/psrobject.entity';
 
 @Entity('box')
 export class BoxEntity {
@@ -18,6 +18,8 @@ export class BoxEntity {
   @Column('int')
   views: number;
 
+  @OneToMany(type => PsrobjectEntity, psrobjects => psrobjects.boxes)
+  psrObjects: PsrobjectEntity[];
 }
 
 

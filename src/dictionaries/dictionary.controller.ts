@@ -10,23 +10,33 @@ export class DictionaryController {
   ) {}
 
   @Get('/regions')
-  getRegions() {
-    return this.dictionaryService.getRegions();
+  readRegions() {
+    return this.dictionaryService.readRegions();
   }
 
   @Post('/regions')
-  setRegions(@Body() data: RegionDTO ) {
-    return this.dictionaryService.setRegions(data);
+  createRegion(@Body() data: RegionDTO ) {
+    return this.dictionaryService.createRegion(data);
+  }
+
+  @Delete('/regions/:id')
+  deleteRegion(@Param('id') id: string ) {
+    return this.dictionaryService.destroyRegion(id);
   }
 
   @Get('/department')
-  getDepartment() {
-    return this.dictionaryService.getDepartment();
+  readDepartments() {
+    return this.dictionaryService.readDepartments();
   }
 
   @Post('/department')
-  setDepartment(@Body() data: DepartmentDTO ) {
-    return this.dictionaryService.setDepartment(data);
+  createDepartment(@Body() data: DepartmentDTO ) {
+    return this.dictionaryService.createDepartment(data);
+  }
+
+  @Delete('/department/:id')
+  deleteDepartment(@Param('id') id: string ) {
+    return this.dictionaryService.destroyDepartment(id);
   }
 
 }

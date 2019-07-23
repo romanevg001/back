@@ -27,10 +27,15 @@ export class TagService {
     return tag;
   }
 
-  async create(data: TagDTO) {
+  async create(id: string, data: TagDTO) {
      await this.tagRepository.save(data);
      return data;
   }
+
+  async update(data: TagDTO) {
+    await this.tagRepository.save(data);
+    return data;
+ }
 
   async destroy(id: string) {
     const tag = await this.tagRepository.findOne({where: {id}, relations: ['psrobjects']});

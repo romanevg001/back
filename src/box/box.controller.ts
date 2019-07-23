@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Delete, Body, Param, Put, Logger, UseGuards, Query } from '@nestjs/common';
 import { BoxService } from './box.service';
 import { AuthGuard } from 'src/shared/auth.guard';
-import { Args } from '@nestjs/graphql';
-import { BoxDTO } from './box.dto';
+import { BoxRQ } from './box.dto';
+import { read } from 'fs';
 
 @Controller('api/box')
 export class BoxController {
@@ -11,19 +11,19 @@ export class BoxController {
   ) {}
 
   @Get()
-  getBoxes() {
-    return this.boxService.getBoxes();
+  readList() {
+    return this.boxService.readList();
   }
 
   @Get(':id')
-  getBox(@Param('id') id: string) {
-    return this.boxService.getBox(id);
+  read(@Param('id') id: string) {
+    return this.boxService.read(id);
   }
 
   @Post()
   //@UseGuards(new AuthGuard())
-  setRegions(@Body() data: BoxDTO ) {
-    return this.boxService.setBox(data);
+  create(@Body() data: BoxRQ ) {
+    return this.boxService.create(data);
   }
 
 }

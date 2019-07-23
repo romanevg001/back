@@ -73,12 +73,11 @@ export class PsrobjectService {
    // const user = await this.userRepository.findOne({where: {id: userId}});
     const department = await this.departmentRepository.findOne({where: {id: data.departmentId}});
     const region = await this.regionRepository.findOne({where: {id: data.regionId}});
-    const tagsId = data.tagsId.map(el => ({'id': el}));
-    const tags = await this.tagRepository.find({where: tagsId});
+    const tags = await this.tagRepository.find({where: data.tagsId.map(el => ({id: el}))});
     const type = await this.typeRepository.findOne({where: {id: data.typeId}});
 
     const psrobject = await this.psrobjectRepository.create({...data, department, region, tags, type});
-
+console.log(psrobject)
     await this.psrobjectRepository.save(psrobject);
     return psrobject;
   }

@@ -18,25 +18,36 @@ export class DictionaryService {
   ) {
   }
 
-  async getRegions() {
+  async readRegions() {
     const regions = await this.regionRepository.find();
     return regions;
   }
 
-  async setRegions(data: RegionDTO) {
+  async createRegion(data: RegionDTO) {
      await this.regionRepository.save(data);
      return data;
   }
 
-  async getDepartment() {
+  async destroyRegion(id: string) {
+    const region = await this.regionRepository.findOne(id);
+    await this.regionRepository.remove(region);
+    return region;
+ }
+
+  async readDepartments() {
     const data = await this.departmentRepository.find();
-    console.log('getDepartment====== ', data);
     return data;
   }
 
-  async setDepartment(data: DepartmentDTO) {
+  async createDepartment(data: DepartmentDTO) {
      await this.departmentRepository.save(data);
      return data;
   }
+
+  async destroyDepartment(id: string) {
+    const department = await this.departmentRepository.findOne(id);
+    await this.departmentRepository.remove(department);
+    return department;
+ }
 
 }

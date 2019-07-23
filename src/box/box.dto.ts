@@ -1,8 +1,18 @@
-import {IsString} from 'class-validator';
+import {IsString, IsArray, IsInt} from 'class-validator';
 
 export class BoxDTO {
   @IsString()
   name: string;
+
+  @IsInt()
+  views: number;
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export class BoxRQ extends BoxDTO {
+
+  @IsArray()
+  psrObjectsIds: string[];
 
 }
 
