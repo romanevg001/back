@@ -4,6 +4,7 @@ type Psrobject {
   image: String!
   created: String!
   type: Type!
+  department: Department!
   choiceJustification: String!
   tags: [Tag!]
 }
