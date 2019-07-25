@@ -18,6 +18,11 @@ export class BoxResolver {
     return await this.boxService.readList(page);
   }
 
+  @Query()
+  async box(@Args('id') id: string) {
+    return await this.boxService.read(id);
+  }
+
 
   // @ResolveProperty()
   // tags(@Parent() psrobject) {

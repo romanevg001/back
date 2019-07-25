@@ -18,7 +18,7 @@ export class BoxEntity {
   @Column('int')
   views: number;
 
-  @OneToMany(type => PsrobjectEntity, psrobjects => psrobjects.boxes)
+  @OneToMany(type => PsrobjectEntity, psrobjects => psrobjects.box)
   psrObjects: PsrobjectEntity[];
 }
 

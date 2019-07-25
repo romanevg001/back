@@ -8,5 +8,6 @@ type Box {
 
 type Query {
   boxes(page: Int): [Box!]
+  box(id: String): Box!
 
 }
