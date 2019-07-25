@@ -3,6 +3,7 @@ type Psrobject {
   title: String!
   image: String!
   created: String!
+  type: Type!
   choiceJustification: String!
   tags: [Tag!]
 }

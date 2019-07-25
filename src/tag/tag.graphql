@@ -7,5 +7,6 @@ type Tag {
 
 type Query {
   tags(page: Int): [Tag!]
+  tag(id: String): Tag!
 
 }

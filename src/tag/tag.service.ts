@@ -27,14 +27,13 @@ export class TagService {
     return tages;
   }
 
-  async read(id: string) {
-    const tag = await this.tagRepository.findOne({where: {id}, relations: ['psrObjects']});
+  async read(tagId: string) {
+    const tag = await this.tagRepository.findOne({where: {id: tagId}, relations: ['psrObjects']});
     return tag;
   }
 
   async getTagsByPsrObject(PsrObjectId: string) {
-    const tag = await this.psrobjectRepository.findOne({where: {PsrObjectId}, relations: ['tags']});
-    console.log('tag ====>', tag);
+    const tag = await this.psrobjectRepository.findOne({where: {id: PsrObjectId}, relations: ['tags']});
     return tag.tags;
   }
 
