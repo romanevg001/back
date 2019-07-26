@@ -8,6 +8,9 @@ import { RegionDTO } from './regions/region.dto';
 import { DepartmentEntity } from './departments/department.entity';
 import { DepartmentDTO } from './departments/department.dto';
 
+import { PsrobjectEntity } from '../psrobject/psrobject.entity';
+
+
 @Injectable()
 export class DictionaryService {
   constructor(
@@ -15,6 +18,8 @@ export class DictionaryService {
     private regionRepository: Repository<RegionEntity>,
     @InjectRepository(DepartmentEntity)
     private departmentRepository: Repository<DepartmentEntity>,
+    @InjectRepository(PsrobjectEntity)
+    private psrobjectRepository: Repository<PsrobjectEntity>,
   ) {
   }
 
@@ -49,5 +54,10 @@ export class DictionaryService {
     await this.departmentRepository.remove(department);
     return department;
  }
+
+ async getDepartmentByPsrObject(PsrObjectId: string) {
+  const psrobject = await this.psrobjectRepository.findOne({where: {id: PsrObjectId}, relations: ['department']});
+  return psrobject.department;
+}
 
 }

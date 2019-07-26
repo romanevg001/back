@@ -4,8 +4,7 @@ import { PsrobjectService } from './psrobject.service';
 import { PsrobjectDTO } from './psrobject.dto';
 import { TagService } from 'src/tag/tag.service';
 import { TypeService } from 'src/type/type.service';
-import { AuthGuard } from 'src/shared/auth.guard';
-import { async } from 'rxjs/internal/scheduler/async';
+import { DictionaryService } from 'src/dictionaries/dictionary.service';
 
 @Resolver('Psrobject')
 export class PsrobjectResolver {
@@ -13,6 +12,7 @@ export class PsrobjectResolver {
     private psrobjectService: PsrobjectService,
     private tagService: TagService,
     private typeService: TypeService,
+    private dictionaryService: DictionaryService,
   ) {
 
   }
@@ -37,5 +37,11 @@ export class PsrobjectResolver {
   type(@Parent() psrobject) {
     const {id} = psrobject;
     return this.typeService.getTypesByPsrObject(id);
+  }
+
+  @ResolveProperty()
+  department(@Parent() psrobject) {
+    const {id} = psrobject;
+    return this.dictionaryService.getDepartmentByPsrObject(id);
   }
 }

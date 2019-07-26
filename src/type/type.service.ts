@@ -42,7 +42,7 @@ export class TypeService {
  }
 
   async getTypesByPsrObject(PsrObjectId: string) {
-    const tag = await this.psrobjectRepository.findOne({where: {id: PsrObjectId}, relations: ['type']});
-    return tag.type;
+    const psrobject = await this.psrobjectRepository.findOne({where: {id: PsrObjectId}, relations: ['type']});
+    return psrobject.type;
   }
 }
