@@ -17,6 +17,7 @@ import { PsrobjectModule } from './psrobject/psrobject.module';
 import { FileModule } from './file/file.module';
 import { TagModule } from './tag/tag.module';
 import { TypeModule } from './type/type.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { TypeModule } from './type/type.module';
     FileModule,
     TagModule,
     TypeModule,
+    SearchModule,
    // MongooseModule.forRoot(),
   ],
   controllers: [
