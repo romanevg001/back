@@ -4,12 +4,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { TypeEntity } from './type.entity';
 import { TypeDTO } from './type.dto';
+import { PsrobjectEntity } from '../psrobject/psrobject.entity';
 
 @Injectable()
 export class TypeService {
   constructor(
     @InjectRepository(TypeEntity)
     private typeRepository: Repository<TypeEntity>,
+    @InjectRepository(PsrobjectEntity)
+    private psrobjectRepository: Repository<PsrobjectEntity>,
   ) {
   }
 
@@ -38,4 +41,8 @@ export class TypeService {
     return type;
  }
 
+  async getTypesByPsrObject(PsrObjectId: string) {
+    const tag = await this.psrobjectRepository.findOne({where: {id: PsrObjectId}, relations: ['type']});
+    return tag.type;
+  }
 }
