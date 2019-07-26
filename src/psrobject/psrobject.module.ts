@@ -12,7 +12,6 @@ import { TypeEntity} from '../type/type.entity';
 import { TypeService} from '../type/type.service';
 import { DictionaryService } from 'src/dictionaries/dictionary.service';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([ PsrobjectEntity, DepartmentEntity, RegionEntity, TagEntity, TypeEntity])],
   controllers: [PsrobjectController],

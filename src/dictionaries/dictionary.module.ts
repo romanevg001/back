@@ -11,6 +11,6 @@ import { PsrobjectEntity} from '../psrobject/psrobject.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([RegionEntity, DepartmentEntity, PsrobjectEntity])],
   controllers: [DictionaryController],
-  providers: [DictionaryService],
+  providers: [DictionaryService, DictionaryResolver],
 })
 export class DictionaryModule {}

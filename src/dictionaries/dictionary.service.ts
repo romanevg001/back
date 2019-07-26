@@ -39,6 +39,13 @@ export class DictionaryService {
     return region;
  }
 
+  async getRegionByPsrObject(PsrObjectId: string) {
+    const psrobject = await this.psrobjectRepository.findOne({where: {id: PsrObjectId}, relations: ['region']});
+    return psrobject.region;
+  }
+
+  // -----------------------------------------------------------------------------
+
   async readDepartments() {
     const data = await this.departmentRepository.find({relations: ['psrObjects']});
     return data;
@@ -55,9 +62,11 @@ export class DictionaryService {
     return department;
  }
 
- async getDepartmentByPsrObject(PsrObjectId: string) {
-  const psrobject = await this.psrobjectRepository.findOne({where: {id: PsrObjectId}, relations: ['department']});
-  return psrobject.department;
-}
+  async getDepartmentByPsrObject(PsrObjectId: string) {
+    const psrobject = await this.psrobjectRepository.findOne({where: {id: PsrObjectId}, relations: ['department']});
+    return psrobject.department;
+  }
+
+
 
 }

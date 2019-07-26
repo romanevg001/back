@@ -12,10 +12,15 @@ export class DictionaryResolver {
 
   }
 
-  // @Query()
-  // async ideas(@Args('page') page: number, @Args('newest') newest: boolean) {
-  //   return await this.ideaService.showAll(page, newest);
-  // }
+  @Query()
+  async regions() {
+    return await this.dictionaryService.readRegions();
+  }
+
+  @Query()
+  async departments() {
+    return await this.dictionaryService.readDepartments();
+  }
 
   // @Query()
   // async idea(@Args('id') id: string) {

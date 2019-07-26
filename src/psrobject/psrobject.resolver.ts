@@ -44,4 +44,10 @@ export class PsrobjectResolver {
     const {id} = psrobject;
     return this.dictionaryService.getDepartmentByPsrObject(id);
   }
+
+  @ResolveProperty()
+  region(@Parent() psrobject) {
+    const {id} = psrobject;
+    return this.dictionaryService.getRegionByPsrObject(id);
+  }
 }

@@ -10,6 +10,6 @@ export class DepartmentEntity {
   name: string;
 
   @OneToMany(type => PsrobjectEntity, psrobjectEntity => psrobjectEntity.department)
-  psrobjects: PsrobjectEntity[];
+  psrObjects: PsrobjectEntity[];
 
 }

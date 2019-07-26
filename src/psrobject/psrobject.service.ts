@@ -54,7 +54,7 @@ export class PsrobjectService {
       delete updatedData.regionId;
     }
     if (data.tagsId) {
-      const tags = await this.tagRepository.find({where: data.tagsId.map(el => ({'id': el}))});
+      const tags = await this.tagRepository.find({where: data.tagsId.map(el => ({id: el}))});
       updatedData = {...updatedData, tags};
       delete updatedData.tagsId;
     }
@@ -78,7 +78,6 @@ export class PsrobjectService {
     const type = await this.typeRepository.findOne({where: {id: data.typeId}});
 
     const psrobject = await this.psrobjectRepository.create({...data, department, region, tags, type});
-console.log(psrobject)
     await this.psrobjectRepository.save(psrobject);
     return psrobject;
   }

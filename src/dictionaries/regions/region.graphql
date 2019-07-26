@@ -1,10 +1,10 @@
-type Department {
+type Region {
   id: ID
   name: String!
+  code: String!
   psrObjects: [Psrobject!]!
 }
 
-
 type Query {
-  departments: [Department!]
+  regions: [Region!]
 }

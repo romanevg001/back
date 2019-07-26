@@ -5,6 +5,7 @@ type Psrobject {
   created: String!
   type: Type!
   department: Department!
+  region: Region!
   choiceJustification: String!
   tags: [Tag!]
 }
