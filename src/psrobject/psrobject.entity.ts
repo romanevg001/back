@@ -44,7 +44,7 @@ export class PsrobjectEntity {
   })
   hidden: boolean;
 
-  @ManyToOne(type => DepartmentEntity, department => department.psrobjects)
+  @ManyToOne(type => DepartmentEntity, department => department.psrObjects)
   department: DepartmentEntity;
 
   @ManyToOne(type => BoxEntity, box => box.psrObjects)

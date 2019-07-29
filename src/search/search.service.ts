@@ -16,42 +16,19 @@ export class SearchService {
 
   async find(data: Partial<SearchDTO>) {
 
-    if (data.searchInPsrObjects) {
       return await this.searchInPsrObjects(data);
-    }
 
-    // @IsBoolean()
-    // searchInDocuments: boolean;
-  
-    // @IsBoolean()
-    // searchInPsrObjects: boolean;
-    // const tages = await this.psrobjectRepository.find({
-    //   relations: ['psrObjects'],
-    //   take: 25,
-    //   skip: 25 * (page - 1 ),
-    // });
-    // return tages;
   }
 
-
   async searchInPsrObjects(data: Partial<SearchDTO>) {
-//     documentTypes: []
-// folders: []
-// industries: ["3906b0c7-9f21-4d5f-98cd-f2b27496e8a5"]
-// materialTypes: []
-// regions: []
-// requestedString: "klkll;"
-// searchInBoxSolutions: false
-// searchInDocuments: false
-// searchInPsrObjects: true
 
     const search = await this.psrobjectRepository.find({
       where: [
-        {title: data.requestedString},
-        {choiceJustification: data.requestedString},
-    //    ...data.regions.map(region => {region: region}),
+        ...data.documentTypes.map(type => ({type: type})),
+        ...data.industries.map(department => ({department: department})),
+        ...data.regions.map(region => ({region: region})),
       ],
-      relations: ['region'],
+     relations: ['department', 'region', 'tags', 'type'],
     });
     return search;
   }

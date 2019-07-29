@@ -3,3 +3,8 @@ type Type {
   name: String!
   psrObjects: [Psrobject!]!
 }
+
+type Query {
+  types: [Type!]
+
+}

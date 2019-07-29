@@ -37,7 +37,6 @@ import { SearchModule } from './search/search.module';
     TagModule,
     TypeModule,
     SearchModule,
-   // MongooseModule.forRoot(),
   ],
   controllers: [
     AppController,
