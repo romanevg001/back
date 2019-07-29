@@ -26,7 +26,6 @@ export class PsrobjectService {
   }
 
   async getList(page: number = 1) {
-    console.log('PsrobjectService getList', page);
     const list = await this.psrobjectRepository.find({
       relations: ['department', 'region', 'tags', 'type'],
       take: 25,

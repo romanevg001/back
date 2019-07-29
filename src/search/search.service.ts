@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PsrobjectEntity } from '../psrobject/psrobject.entity';
 import { SearchDTO } from './search.dto';
 
-
 @Injectable()
 export class SearchService {
   constructor(
@@ -24,9 +23,10 @@ export class SearchService {
 
     const search = await this.psrobjectRepository.find({
       where: [
-        ...data.documentTypes.map(type => ({type: type})),
-        ...data.industries.map(department => ({department: department})),
-        ...data.regions.map(region => ({region: region})),
+        (data.requestedString) ? {title: '%' + data.requestedString + '%'} : {},
+        ...((data.documentTypes) ? data.documentTypes.map(type => ({type})) : []),
+        ...((data.industries) ? data.industries.map(department => ({department})) : []),
+        ...((data.regions) ? data.regions.map(region => ({region})) : []),
       ],
      relations: ['department', 'region', 'tags', 'type'],
     });
