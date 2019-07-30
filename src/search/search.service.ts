@@ -37,19 +37,8 @@ export class SearchService {
     // }
 
     return Promise.all(searchPromises).then(([psrobjects, boxes]) => {
-
-
       return {psrobjects, boxes};
     });
-
-      // let where = [
-      //   (data.requestedString) ? {title: Like('%' + data.requestedString + '%')} : {},
-      //   (data.requestedString) ? {choiceJustification: Like('%' + data.requestedString + '%')} : {},
-      //   // ...((data.documentTypes) ? data.documentTypes.map(type => ({type})) : []),
-      //   // ...((data.industries) ? data.industries.map(department => ({department})) : []),
-      //   // ...((data.regions) ? data.regions.map(region => ({region})) : []),
-      // ]
-    //  return await this.searchInPsrObjects(data);
 
   }
 
