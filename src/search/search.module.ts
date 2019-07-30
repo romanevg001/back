@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PsrobjectEntity} from '../psrobject/psrobject.entity';
+import { BoxEntity } from '../box/box.entity';
 import { SearchController} from './search.controller';
 import { SearchService} from './search.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ PsrobjectEntity])],
+  imports: [TypeOrmModule.forFeature([ PsrobjectEntity, BoxEntity])],
   controllers: [SearchController],
   providers: [SearchService],
 })

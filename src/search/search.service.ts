@@ -1,15 +1,20 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Repository, Like } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { combineLatest, from } from 'rxjs';
 
 import { PsrobjectEntity } from '../psrobject/psrobject.entity';
+import { BoxEntity } from '../box/box.entity';
 import { SearchDTO } from './search.dto';
+import { Observable } from 'apollo-link';
 
 @Injectable()
 export class SearchService {
   constructor(
     @InjectRepository(PsrobjectEntity)
     private psrobjectRepository: Repository<PsrobjectEntity>,
+    @InjectRepository(BoxEntity)
+    private boxRepository: Repository<BoxEntity>,
   ) {
   }
 
@@ -20,6 +25,23 @@ export class SearchService {
 }
 
   async find(data: Partial<SearchDTO>) {
+    const searchPromises = [];
+    if (data.searchInPsrObjects) {
+      searchPromises.push(this.searchInPsrObjects(data));
+    }
+    if (data.searchInBoxSolutions) {
+      searchPromises.push(this.searchInBoxSolutions(data));
+    }
+    // if (data.searchInDocuments) {
+
+    // }
+
+    return Promise.all(searchPromises).then(([psrobjects, boxes]) => {
+
+
+      return {psrobjects, boxes};
+    });
+
       // let where = [
       //   (data.requestedString) ? {title: Like('%' + data.requestedString + '%')} : {},
       //   (data.requestedString) ? {choiceJustification: Like('%' + data.requestedString + '%')} : {},
@@ -27,13 +49,12 @@ export class SearchService {
       //   // ...((data.industries) ? data.industries.map(department => ({department})) : []),
       //   // ...((data.regions) ? data.regions.map(region => ({region})) : []),
       // ]
-      return await this.searchInPsrObjects(data);
+    //  return await this.searchInPsrObjects(data);
 
   }
 
-  async searchInPsrObjects(data: Partial<SearchDTO>) {
-
-    const search = await this.psrobjectRepository.find({
+  async searchInPsrObjects(data: Partial<SearchDTO>): Promise<PsrobjectEntity[]> {
+    return await this.psrobjectRepository.find({
       where: [
         (data.requestedString) ? {title: Like('%' + data.requestedString + '%')} : {},
         (data.requestedString) ? {choiceJustification: Like('%' + data.requestedString + '%')} : {},
@@ -43,7 +64,27 @@ export class SearchService {
       ],
      relations: ['department', 'region', 'tags', 'type'],
     });
-    return search;
+  }
+
+   async searchInBoxSolutions(data: Partial<SearchDTO>): Promise<BoxEntity[]> {
+    return await this.boxRepository.find({
+      where: [
+        (data.requestedString) ? {name: Like('%' + data.requestedString + '%')} : {},
+      ],
+      relations: ['psrObjects'],
+    });
   }
 
 }
+
+// requestedString: string;
+//   page: number;
+//   pageLimit: number;
+//   searchInPsrObjects: boolean;
+//   searchInBoxSolutions: boolean;
+//   searchInDocuments: boolean;
+//   industries: string[];
+//   materialTypes: string[];
+//   regions: string[];
+//   documentTypes: string[];
+//   folders: string[];
