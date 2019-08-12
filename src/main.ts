@@ -7,18 +7,19 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 const port = process.env.PORT || 3002;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
+
+  const server = await NestFactory.create(AppModule);
+  server.enableCors();
   const options = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')
     .setVersion('1.0')
     .addTag('cats')
     .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  const document = SwaggerModule.createDocument(server, options);
+  SwaggerModule.setup('api', server, document);
 
-  await app.listen(port);
+  await server.listen(port);
   Logger.log('Run on port:' + port);
 }
 bootstrap();

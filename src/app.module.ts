@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+// import { AppController } from './app.controller';
+// import { AppService } from './app.service';
 import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdeaModule } from './idea/idea.module';
@@ -18,6 +18,7 @@ import { FileModule } from './file/file.module';
 import { TagModule } from './tag/tag.module';
 import { TypeModule } from './type/type.module';
 import { SearchModule } from './search/search.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -37,12 +38,11 @@ import { SearchModule } from './search/search.module';
     TagModule,
     TypeModule,
     SearchModule,
+    AuthModule,
   ],
   controllers: [
-    AppController,
   ],
   providers: [
-    AppService,
     {provide: APP_FILTER, useClass: HttpErrorFilter },
     {provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
     {provide: APP_PIPE, useClass: ValidationPipe },

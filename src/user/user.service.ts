@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { UserDTO, UserRO } from './user.dto';
 import { Repository } from 'typeorm';
+import { LoginDTO, RegisterDTO } from '../auth/auth.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -20,12 +22,12 @@ export class UserService {
      return users.map(user => user.toResponseObject(false));
   }
 
-  async read(username: string) {
+  async read(username: string, isShowPassword = false) {
     const user = await this.userRepository.findOne({
       where: {username},
       relations: ['ideas', 'bookmarks'],
     });
-    return user.toResponseObject(false);
+    return user.toResponseObject(isShowPassword);
   }
 
   async login(data: UserDTO): Promise<UserRO> {
@@ -50,4 +52,50 @@ export class UserService {
     await this.userRepository.save(user);
     return user.toResponseObject();
   }
+
+  // async findByLogin(loginDTO: LoginDTO): Promise<UserDTO> {
+  //   return user.toResponseObject();
+  // }
+
+  async create(userDTO: RegisterDTO) {
+    const { username } = userDTO;
+    const user = await this.userRepository.findOne({ username });
+    if (user) {
+      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
+    }
+
+    const createdUser = await this.userRepository.create(userDTO);
+    await this.userRepository.save(createdUser);
+    return this.sanitizeUser(createdUser);
+  }
+
+  async find() {
+    return await this.userRepository.find();
+  }
+
+  async findByLogin(userDTO: LoginDTO) {
+    const { username, password } = userDTO;
+    const user = await this.userRepository.findOne({ username });
+    if (!user) {
+      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
+      return this.sanitizeUser(user);
+    } else {
+      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+  async findByPayload(payload) {
+    const { username } = payload;
+    return await this.userRepository.findOne({ username });
+  }
+
+  sanitizeUser(user: UserDTO) {
+    const sanitized = user;
+    delete sanitized['password'];
+    return sanitized;
+  }
+
 }
