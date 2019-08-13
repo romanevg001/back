@@ -1,13 +1,20 @@
-import {IsNotEmpty} from 'class-validator';
+import {IsNotEmpty, IsEmail, IsString} from 'class-validator';
 import {IdeaEntity} from '../idea/idea.entity';
 
 export class UserDTO {
 
   @IsNotEmpty()
+  @IsString()
   username: string;
 
   @IsNotEmpty()
+  @IsString()
   password: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  @IsString()
+  email: string;
 
 }
 
@@ -15,6 +22,7 @@ export class UserDTO {
 export class UserRO {
   id: string;
   username: string;
+  email: string;
   created: Date;
   token?: string;
   bookmarks?: IdeaEntity[];

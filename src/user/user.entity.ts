@@ -19,6 +19,12 @@ export class UserEntity {
   })
   username: string;
 
+  @Column({
+    type: 'text',
+    unique: true,
+  })
+  email: string;
+
   @Column('text')
   password: string;
 

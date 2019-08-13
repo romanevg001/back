@@ -8,7 +8,8 @@ export interface LoginDTO {
 export interface RegisterDTO {
   username: string;
   password: string;
-  seller?: boolean;
+  email: string;
+  //seller?: boolean;
   // address?: Address;
 }
 

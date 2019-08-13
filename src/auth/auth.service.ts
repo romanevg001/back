@@ -6,21 +6,20 @@ import * as jwt from 'jsonwebtoken';
 export class AuthService {
   constructor(private readonly userService: UserService) {}
 
-  createToken(email: string, ttl?: number) {
-    const expiresIn = ttl || 60 * 60;
-    const secretOrKey = 'secretKey';
-    const user = { email };
-    const token = jwt.sign(user, secretOrKey, { expiresIn });
-    return {
-      expires_in: expiresIn,
-      access_token: token,
-    };
-  }
+  // createToken(email: string, ttl?: number) {
+  //   const expiresIn = ttl || 60 * 60;
+  //   const secretOrKey = 'secretKey';
+  //   const user = { email };
+  //   const token = jwt.sign(user, secretOrKey, { expiresIn });
+  //   return {
+  //     expires_in: expiresIn,
+  //     access_token: token,
+  //   };
+  // }
 
   async validateUser(payload): Promise<any> {
     const {username, password} = payload;
     const user = await this.userService.read(username, true);
-    console.log('user', user);
     return !!user;
     // if (user && user.password === password) {
     //   const { password, ...result } = user;
@@ -32,7 +31,7 @@ export class AuthService {
 
 
   async signPayload(payload) {
-
+    return jwt.sign(payload, process.env.SECRET, { expiresIn: '12h' });
   }
 
 }

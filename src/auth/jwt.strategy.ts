@@ -3,9 +3,6 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
-export const jwtConstants = {
-  secret: 'secretKey',
-};
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -14,11 +11,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       passReqToCallback: true,
       // ignoreExpiration: false,
-      secretOrKey: jwtConstants.secret,
+      secretOrKey: process.env.SECRET,
     });
   }
 
   public async validate(req, payload, done) {
+    console.log('req',req);
+    console.log('payload',payload);
     const isValid = await this.authService.validateUser(payload);
     if (!isValid) {
       return done('Unauthorized', null);

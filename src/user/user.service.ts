@@ -42,31 +42,27 @@ export class UserService {
     return user.toResponseObject();
   }
 
+
   async register(data: UserDTO): Promise<UserRO> {
     const {username} = data;
     let user = await this.userRepository.findOne({where: {username}});
     if (user) {
       throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
     }
+
     user = await this.userRepository.create(data);
     await this.userRepository.save(user);
     return user.toResponseObject();
   }
 
-  // async findByLogin(loginDTO: LoginDTO): Promise<UserDTO> {
-  //   return user.toResponseObject();
-  // }
-
-  async create(userDTO: RegisterDTO) {
-    const { username } = userDTO;
-    const user = await this.userRepository.findOne({ username });
+  async update(id: string, data: UserDTO): Promise<UserRO> {
+    const user = await this.userRepository.findOne({where: {id}});
     if (user) {
-      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
-    }
+      await this.userRepository.update({id}, data);
+      const updateUser = await this.userRepository.findOne({where: {id}});
 
-    const createdUser = await this.userRepository.create(userDTO);
-    await this.userRepository.save(createdUser);
-    return this.sanitizeUser(createdUser);
+      return updateUser.toResponseObject();
+    }
   }
 
   async find() {
@@ -76,11 +72,12 @@ export class UserService {
   async findByLogin(userDTO: LoginDTO) {
     const { username, password } = userDTO;
     const user = await this.userRepository.findOne({ username });
+    
     if (!user) {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
 
-    if (await bcrypt.compare(password, user.password)) {
+    if (await bcrypt.compare(String(password), String(user.password))) {
       return this.sanitizeUser(user);
     } else {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);

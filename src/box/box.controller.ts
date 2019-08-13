@@ -1,8 +1,7 @@
 import { Controller, Get, Post, Delete, Body, Param, Put, Logger, UseGuards, Query } from '@nestjs/common';
 import { BoxService } from './box.service';
-import { AuthGuard } from 'src/shared/auth.guard';
+import { AuthGuard } from '@nestjs/passport';
 import { BoxRQ } from './box.dto';
-import { read } from 'fs';
 
 @Controller('api/box')
 export class BoxController {
@@ -21,7 +20,7 @@ export class BoxController {
   }
 
   @Post()
-  //@UseGuards(new AuthGuard())
+  @UseGuards(AuthGuard())
   create(@Body() data: BoxRQ ) {
     return this.boxService.create(data);
   }

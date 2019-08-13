@@ -13,7 +13,7 @@ import { UserEntity } from '../user/user.entity';
   imports: [
     PassportModule.register({
       defaultStrategy: 'jwt',
-      session: true,
+ //     session: true,
     }),
     TypeOrmModule.forFeature([UserEntity]),
   ],
@@ -23,5 +23,6 @@ import { UserEntity } from '../user/user.entity';
       UserService,
       JwtStrategy,
   ],
+  exports: [AuthService]
 })
 export class AuthModule {}

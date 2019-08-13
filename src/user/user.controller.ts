@@ -1,9 +1,8 @@
-import { Controller, Post, Get, Body, Query, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Body, Query, UseGuards, Param, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDTO } from './user.dto';
 // import { AuthGuard } from 'src/shared/auth.guard';
 // import { User } from './user.decorator';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class UserController {
@@ -17,7 +16,7 @@ export class UserController {
     return this.userService.showAll(page);
   }
 
-  @UseGuards(AuthGuard())
+ 
   @Post('login')
   login(@Body() data: UserDTO) {
     return this.userService.login(data);
@@ -27,7 +26,11 @@ export class UserController {
   @Post('register')
   register(@Body() data: UserDTO) {
     return this.userService.register(data);
+  }
 
+  @Put('api/user/:id')
+  update(@Param('id') id: string, @Body() data: UserDTO) {
+    return this.userService.update(id, data);
   }
 
 }

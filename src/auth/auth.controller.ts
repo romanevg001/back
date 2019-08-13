@@ -8,12 +8,9 @@ import { AuthService } from './auth.service';
 
 export interface Payload {
   username: string;
-  seller: boolean;
-  iat?: number;
-  expiresIn?: string;
 }
 
-@Controller('auth')
+@Controller('api')
 export class AuthController {
   constructor(
     private userService: UserService,
@@ -25,7 +22,6 @@ export class AuthController {
     const user = await this.userService.findByLogin(userDTO);
     const payload = {
       username: user.username,
-    //  seller: user.seller,
     };
     const token = await this.authService.signPayload(payload);
     return { user, token };
@@ -33,10 +29,9 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() userDTO: RegisterDTO) {
-    const user = await this.userService.create(userDTO);
+    const user = await this.userService.register(userDTO);
     const payload = {
       username: user.username,
-    //  seller: user.seller,
     };
     const token = await this.authService.signPayload(payload);
     return { user, token };
