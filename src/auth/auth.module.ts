@@ -8,6 +8,7 @@ import { UserService } from '../user/user.service';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
   imports: [
@@ -16,6 +17,10 @@ import { UserEntity } from '../user/user.entity';
  //     session: true,
     }),
     TypeOrmModule.forFeature([UserEntity]),
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
+      context: ({ req }) => ({ req }),
+    }),
   ],
   controllers: [AuthController],
   providers: [
@@ -23,6 +28,6 @@ import { UserEntity } from '../user/user.entity';
       UserService,
       JwtStrategy,
   ],
-  exports: [AuthService]
+  exports: [AuthService],
 })
 export class AuthModule {}

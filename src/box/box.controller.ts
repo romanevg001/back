@@ -10,6 +10,7 @@ export class BoxController {
   ) {}
 
   @Get()
+  @UseGuards(AuthGuard())
   readList() {
     return this.boxService.readList();
   }
