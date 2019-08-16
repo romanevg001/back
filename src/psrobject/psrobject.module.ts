@@ -15,9 +15,6 @@ import { DictionaryService } from 'src/dictionaries/dictionary.service';
 @Module({
   imports: [TypeOrmModule.forFeature([ PsrobjectEntity, DepartmentEntity, RegionEntity, TagEntity, TypeEntity])],
   controllers: [PsrobjectController],
-  providers: [
-    PsrobjectService,
-    // PsrobjectResolver,
-    TagService, TypeService, DictionaryService],
+  providers: [PsrobjectService, PsrobjectResolver, TagService, TypeService, DictionaryService],
 })
 export class PsrobjectModule {}

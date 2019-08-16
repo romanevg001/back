@@ -3,8 +3,9 @@ import { UseGuards } from '@nestjs/common';
 import { BoxService } from './box.service';
 import { BoxEntity } from './box.entity';
 import { AuthGuard } from 'src/shared/auth.guard';
+import { GqlAuthGuard } from '../auth/gqlauth.guard';
 
-@Resolver(of => BoxEntity)
+@Resolver()
 export class BoxResolver {
   constructor(
     private readonly boxService: BoxService,
@@ -12,12 +13,13 @@ export class BoxResolver {
 
   }
 
-  @Query(returns => [BoxEntity])
+  @Query()
+  @UseGuards(new GqlAuthGuard())
   async boxes(@Args('page') page: number): Promise<BoxEntity[]> {
     return await this.boxService.readList(page);
   }
 
-  @Query(returns => BoxEntity)
+  @Query()
   async box(@Args('id') id: string): Promise<BoxEntity> {
     return await this.boxService.read(id);
   }

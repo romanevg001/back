@@ -1,0 +1,14 @@
+
+type Box {
+  id: ID!
+  created: String!
+  updated: String!
+  name: String!
+  views: Int!
+  psrObjects: [Psrobject!]!
+}
+
+type Query {
+  boxes(page: Float): [Box!]!
+  box(id: ID!): Box!
+}

@@ -1,0 +1,17 @@
+type Psrobject {
+  id: ID
+  title: String!
+  image: String!
+  created: String!
+  type: Type!
+  department: Department!
+  region: Region!
+  choiceJustification: String!
+  tags: [Tag!]
+}
+
+type Query {
+  psrobjects(page: Int): [Psrobject!]
+  psrobject(id: ID!): Psrobject!
+
+}

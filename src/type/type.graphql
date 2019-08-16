@@ -1,0 +1,10 @@
+type Type {
+  id: ID
+  name: String!
+  psrObjects: [Psrobject!]!
+}
+
+type Query {
+  types: [Type!]
+
+}

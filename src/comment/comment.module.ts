@@ -10,8 +10,6 @@ import { CommentResolver } from './comment.resolver';
 @Module({
   imports: [TypeOrmModule.forFeature([IdeaEntity, UserEntity, CommentEntity])],
   controllers: [CommentController],
-  providers: [CommentService,
-    //CommentResolver
-  ],
+  providers: [CommentService, CommentResolver],
 })
 export class CommentModule {}

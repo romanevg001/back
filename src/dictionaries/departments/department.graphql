@@ -1,0 +1,10 @@
+type Department {
+  id: ID
+  name: String!
+  psrObjects: [Psrobject!]!
+}
+
+
+type Query {
+  departments: [Department!]
+}

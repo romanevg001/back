@@ -9,8 +9,6 @@ import { PsrobjectEntity} from '../psrobject/psrobject.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([TagEntity, PsrobjectEntity])],
   controllers: [TagController],
-  providers: [TagService,
-  //  TagResolver
-  ],
+  providers: [TagService, TagResolver],
 })
 export class TagModule {}

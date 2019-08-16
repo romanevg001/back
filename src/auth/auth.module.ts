@@ -17,10 +17,10 @@ import { GraphQLModule } from '@nestjs/graphql';
  //     session: true,
     }),
     TypeOrmModule.forFeature([UserEntity]),
-    GraphQLModule.forRoot({
-      typePaths: ['./**/*.graphql'],
-      context: ({ req }) => ({ req }),
-    }),
+    // GraphQLModule.forRoot({
+    //   typePaths: ['./**/*.graphql'],
+    //   context: ({ req }) => ({ req }),
+    // }),
   ],
   controllers: [AuthController],
   providers: [

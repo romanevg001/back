@@ -36,18 +36,18 @@ import { BoxService  } from './box/box.service';
     TypeModule,
     SearchModule,
     AuthModule,
+    // GraphQLModule.forRoot({
+    //   installSubscriptionHandlers: true,
+    //   autoSchemaFile: 'schema.gql',
+    //   debug: true,
+    //   playground: true,
+    //   context: ({req}) => (req),
+    // }),
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
-      autoSchemaFile: 'schema.gql',
-      debug: true,
-      playground: true,
+      typePaths: ['./**/*.graphql'],
+      context: ({req}) => ({ req }),
     }),
-    // GraphQLModule.forRoot({
-    //   // installSubscriptionHandlers: true,
-    //   autoSchemaFile: 'schema.gql',
-    //   // typePaths: ['./**/*.graphql'],
-    //    context: ({req}) => ({ headers: req.headers }),
-    // }),
   ],
   controllers: [
   ],
