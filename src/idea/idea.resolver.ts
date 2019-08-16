@@ -4,8 +4,10 @@ import { AuthGuard } from 'src/shared/auth.guard';
 import { IdeaService } from './idea.service';
 import { IdeaDTO } from './idea.dto';
 import { CommentService } from '../comment/comment.service';
+import { CommentEntity } from '../comment/comment.entity';
+import { IdeaEntity } from './idea.entity';
 
-@Resolver('Idea')
+@Resolver(of => IdeaEntity)
 export class IdeaResolver {
   constructor(
     private ideaService: IdeaService,
@@ -14,17 +16,17 @@ export class IdeaResolver {
 
   }
 
-  @Query()
+  @Query(returns => [IdeaEntity])
   async ideas(@Args('page') page: number, @Args('newest') newest: boolean) {
     return await this.ideaService.showAll(page, newest);
   }
 
-  @Query()
+  @Query(returns => IdeaEntity)
   async idea(@Args('id') id: string) {
     return await this.ideaService.read(id);
   }
 
-  @Mutation()
+  @Mutation(returns => IdeaEntity)
   @UseGuards(new AuthGuard())
   async createIdea(
     @Args('idea') idea: string,
@@ -36,7 +38,7 @@ export class IdeaResolver {
     return await this.ideaService.create(userId, data);
   }
 
-  @Mutation()
+  @Mutation(returns => IdeaEntity)
   @UseGuards(new AuthGuard())
   async updateIdea(
     @Args('id') id: string,
@@ -49,7 +51,7 @@ export class IdeaResolver {
     return await this.ideaService.update(id, userId, data);
   }
 
-  @Mutation()
+  @Mutation(returns => IdeaEntity)
   @UseGuards(new AuthGuard())
   async deleteIdea(
     @Args('id') id: string,
@@ -57,7 +59,7 @@ export class IdeaResolver {
     return await this.ideaService.destroy(id);
   }
 
-  @Mutation()
+  @Mutation(returns => IdeaEntity)
   @UseGuards(new AuthGuard())
   async upvote(
     @Args('id') id: string,
@@ -67,7 +69,7 @@ export class IdeaResolver {
     return await this.ideaService.upvote(id, userId);
   }
 
-  @Mutation()
+  @Mutation(returns => IdeaEntity)
   @UseGuards(new AuthGuard())
   async downvote(
     @Args('id') id: string,
@@ -77,7 +79,7 @@ export class IdeaResolver {
     return await this.ideaService.downvote(id, userId);
   }
 
-  @Mutation()
+  @Mutation(returns => IdeaEntity)
   @UseGuards(new AuthGuard())
   async bookmark(
     @Args('id') id: string,
@@ -87,7 +89,7 @@ export class IdeaResolver {
     return await this.ideaService.bookmark(id, userId);
   }
 
-  @Mutation()
+  @Mutation(returns => IdeaEntity)
   @UseGuards(new AuthGuard())
   async unbookmark(
     @Args('id') id: string,
@@ -97,7 +99,7 @@ export class IdeaResolver {
     return await this.ideaService.unbookmark(id, userId);
   }
 
-  @ResolveProperty()
+  @ResolveProperty(returns => CommentEntity)
   comments(@Parent() idea) {
     const {id} = idea;
     return this.commentService.showByIdea(id);

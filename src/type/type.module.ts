@@ -9,6 +9,8 @@ import { PsrobjectEntity} from '../psrobject/psrobject.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([TypeEntity, PsrobjectEntity])],
   controllers: [TypeController],
-  providers: [TypeService, TypeResolver],
+  providers: [TypeService,
+    // TypeResolver
+  ],
 })
 export class TypeModule {}

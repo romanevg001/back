@@ -1,4 +1,4 @@
-import { Module, NestModule, MiddlewareConsumer,  } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer  } from '@nestjs/common';
 import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdeaModule } from './idea/idea.module';
@@ -16,14 +16,13 @@ import { TagModule } from './tag/tag.module';
 import { TypeModule } from './type/type.module';
 import { SearchModule } from './search/search.module';
 import { AuthModule } from './auth/auth.module';
-import { GraphQlBridge } from 'nestjs-type-graphql';
+// import { GraphQlBridge, TypeGQLModule } from 'nestjs-type-graphql';
+import { GraphQLModule } from '@nestjs/graphql';
+import { BoxResolver  } from './box/box.resolver';
+import { BoxService  } from './box/box.service';
 
 @Module({
   imports: [
-    // GraphQLModule.forRoot({
-    //   typePaths: ['./**/*.graphql'],
-    //   context: ({req}) => ({ headers: req.headers }),
-    // }),
     TypeOrmModule.forRoot(),
     ItemsModule,
     IdeaModule,
@@ -37,6 +36,18 @@ import { GraphQlBridge } from 'nestjs-type-graphql';
     TypeModule,
     SearchModule,
     AuthModule,
+    GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
+      autoSchemaFile: 'schema.gql',
+      debug: true,
+      playground: true,
+    }),
+    // GraphQLModule.forRoot({
+    //   // installSubscriptionHandlers: true,
+    //   autoSchemaFile: 'schema.gql',
+    //   // typePaths: ['./**/*.graphql'],
+    //    context: ({req}) => ({ headers: req.headers }),
+    // }),
   ],
   controllers: [
   ],
@@ -46,17 +57,4 @@ import { GraphQlBridge } from 'nestjs-type-graphql';
     {provide: APP_PIPE, useClass: ValidationPipe },
   ],
 })
-export class AppModule implements NestModule {
-  constructor(private readonly graphQL: GraphQlBridge) {}
-
-  configure(consumer: MiddlewareConsumer) {
-    const schema = this.graphQL.buildSchema();
-    consumer
-      .apply(graphqlExpress(req => ({ schema, rootValue: req })))
-      .forRoutes('/graphql');
-
-    consumer
-      .apply(graphiqlExpress({ endpointURL: '/graphql' }))
-      .forRoutes('/playground');
-  }
-}
+export class AppModule {}

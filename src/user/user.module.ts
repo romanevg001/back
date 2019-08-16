@@ -11,6 +11,8 @@ import { UserResolver } from './user.resolver';
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity, IdeaEntity, CommentEntity])],
   controllers: [UserController],
-  providers: [UserService, UserResolver, CommentService],
+  providers: [UserService,
+    //UserResolver,
+    CommentService],
 })
 export class UserModule {}

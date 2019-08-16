@@ -7,7 +7,6 @@ import { BoxDTO, BoxRQ } from './box.dto';
 
 import { PsrobjectEntity } from '../psrobject/psrobject.entity';
 
-
 @Injectable()
 export class BoxService {
   constructor(
@@ -35,15 +34,9 @@ export class BoxService {
   async create(data: BoxRQ): Promise<BoxDTO> {
     const psrObjects = await this.psrobjectRepository.find({where: data.psrObjectsIds.map(el => ({id: el}))});
     delete data.psrObjectsIds;
-    console.log('====================================');
-    console.log({...data, psrObjects});
-    console.log('====================================');
     const box = await this.boxRepository.create({...data, psrObjects});
-    console.log('====================================');
-    console.log(box);
-    console.log('====================================');
-     await this.boxRepository.save(box);
-     return box;
+    await this.boxRepository.save(box);
+    return box;
   }
 
 }

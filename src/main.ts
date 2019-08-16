@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { GraphQlBridge } from 'nestjs-type-graphql';
 
 const port = process.env.PORT || 3002;
 
@@ -13,9 +12,6 @@ async function bootstrap() {
     bodyParser: true,
     cors: true,
   });
-
-  const gqlW = server.get(GraphQlBridge);
-  gqlW.setContainer(server);
 
   const options = new DocumentBuilder()
     .setTitle('Cats example')

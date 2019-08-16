@@ -1,7 +1,7 @@
 import { Resolver, Query, Args, ResolveProperty, Parent, Mutation, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserDTO } from './user.dto';
+import { UserDTO, UserDTOFull } from './user.dto';
 import { CommentService } from 'src/comment/comment.service';
 import { AuthGuard } from 'src/shared/auth.guard';
 
@@ -41,8 +41,12 @@ export class UserResolver {
   }
 
   @Mutation()
-  register(@Args() {username,  password}) {
-    const user: UserDTO = {username, password};
+  register(
+    @Args('username') username: string,
+    @Args('password') password: string,
+    @Args('email') email: string,
+  ) {
+    const user: UserDTOFull = {username, password, email};
     return this.userService.register(user);
   }
 

@@ -1,33 +1,25 @@
 import { Resolver, Query, Args, ResolveProperty, Parent, Mutation, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { BoxService } from './box.service';
-import { TagService } from 'src/tag/tag.service';
+import { BoxEntity } from './box.entity';
 import { AuthGuard } from 'src/shared/auth.guard';
 
-@Resolver('Box')
+@Resolver(of => BoxEntity)
 export class BoxResolver {
   constructor(
-    private boxService: BoxService,
-  //  private tagService: TagService,
+    private readonly boxService: BoxService,
   ) {
 
   }
 
-  @Query()
-  async boxes(@Args('page') page: number) {
+  @Query(returns => [BoxEntity])
+  async boxes(@Args('page') page: number): Promise<BoxEntity[]> {
     return await this.boxService.readList(page);
   }
 
-  @Query()
-  async box(@Args('id') id: string) {
+  @Query(returns => BoxEntity)
+  async box(@Args('id') id: string): Promise<BoxEntity> {
     return await this.boxService.read(id);
   }
 
-
-  // @ResolveProperty()
-  // tags(@Parent() psrobject) {
-  //   const {id} = psrobject;
-  //   console.log('psrobject ===> ',psrobject);
-  //   return this.tagService.getByPsrObject(id);
-  // }
 }

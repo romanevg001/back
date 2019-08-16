@@ -11,6 +11,11 @@ export class UserDTO {
   @IsString()
   password: string;
 
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export class UserDTOFull extends UserDTO {
+  
   @IsNotEmpty()
   @IsEmail()
   @IsString()

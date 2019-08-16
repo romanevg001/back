@@ -11,6 +11,8 @@ import { IdeaResolver } from './idea.resolver';
 @Module({
   imports: [TypeOrmModule.forFeature([IdeaEntity, UserEntity, CommentEntity])],
   controllers: [IdeaController],
-  providers: [IdeaService, IdeaResolver, CommentService],
+  providers: [IdeaService,
+    //IdeaResolver, 
+    CommentService],
 })
 export class IdeaModule {}
