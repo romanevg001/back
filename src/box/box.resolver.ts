@@ -4,6 +4,8 @@ import { BoxService } from './box.service';
 import { BoxEntity } from './box.entity';
 import { AuthGuard } from 'src/shared/auth.guard';
 import { GqlAuthGuard } from '../auth/gqlauth.guard';
+import { UserRO } from '../user/user.dto';
+import { BoxRQ } from './box.dto';
 
 @Resolver()
 export class BoxResolver {
@@ -14,7 +16,6 @@ export class BoxResolver {
   }
 
   @Query()
-  @UseGuards(new GqlAuthGuard())
   async boxes(@Args('page') page: number): Promise<BoxEntity[]> {
     return await this.boxService.readList(page);
   }
@@ -24,4 +25,14 @@ export class BoxResolver {
     return await this.boxService.read(id);
   }
 
+  @Mutation()
+  @UseGuards(new AuthGuard())
+  createBox(
+    @Args('name') name: string,
+    @Args('psrObjectsIds') psrObjectsIds: string[],
+  ) {
+    console.log(name, psrObjectsIds)
+    const data = {name, psrObjectsIds};
+    return this.boxService.create(data);
+  }
 }

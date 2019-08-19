@@ -15,7 +15,10 @@ export class BoxEntity {
   @Column('text')
   name: string;
 
-  @Column('text')
+  @Column({
+    type: 'text',
+    default: 0,
+  })
   views: number;
 
   @OneToMany(type => PsrobjectEntity, psrobjects => psrobjects.box)

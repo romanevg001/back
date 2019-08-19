@@ -9,7 +9,9 @@ export class BoxDTO {
 }
 
 // tslint:disable-next-line:max-classes-per-file
-export class BoxRQ extends BoxDTO {
+export class BoxRQ {
+  @IsString()
+  name: string;
 
   @IsArray()
   psrObjectsIds: string[];

@@ -12,7 +12,7 @@ export class LoggingInterceptor implements NestInterceptor {
   ): Observable<any> {
     const req = context.switchToHttp().getRequest();
     const now = Date.now();
-
+    console.log('LoggingInterceptor =>',req)
     if (req) {
       const method = req.method;
       const url = req.url;

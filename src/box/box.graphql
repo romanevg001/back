@@ -12,3 +12,10 @@ type Query {
   boxes(page: Float): [Box!]!
   box(id: ID!): Box!
 }
+
+type Mutation {
+  createBox(
+    name: String!,
+    psrObjectsIds: [String!]!
+  ):  Box!
+}
