@@ -1,7 +1,7 @@
-import { Controller, Post, Get, Body, Query, UseGuards, Param, Put } from '@nestjs/common';
+import { Controller, Post, Get, Body, Query, UseGuards, Param, Put, UsePipes } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserDTO } from './user.dto';
-// import { AuthGuard } from 'src/shared/auth.guard';
+import { UserDTO, UserDTOFull } from './user.dto';
+import { ValidationPipe } from 'src/shared/validation.pipe';
 // import { User } from './user.decorator';
 
 @Controller()
@@ -23,7 +23,8 @@ export class UserController {
   }
 
   @Post('register')
-  register(@Body() data: UserDTO) {
+  @UsePipes(new ValidationPipe())
+  register(@Body() data: UserDTOFull) {
     return this.userService.register(data);
   }
 

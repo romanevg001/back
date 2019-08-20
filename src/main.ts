@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from './shared/validation.pipe';
 import { Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
@@ -12,6 +13,8 @@ async function bootstrap() {
     bodyParser: true,
     cors: true,
   });
+
+  server.useGlobalPipes(new ValidationPipe());
 
   const options = new DocumentBuilder()
     .setTitle('Cats example')

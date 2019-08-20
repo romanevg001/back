@@ -24,7 +24,7 @@ export class CommentController {
 
   @Post('idea/:id')
   @UseGuards(new AuthGuard())
-  @UsePipes(new ValidationPipe())
+  // @UsePipes(new ValidationPipe())
   createComment(
     @Param('id') idea: string,
     @User('id') user: string,
