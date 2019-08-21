@@ -31,7 +31,6 @@ export class BoxResolver {
     @Args('name') name: string,
     @Args('psrObjectsIds') psrObjectsIds: string[],
   ) {
-    console.log(name, psrObjectsIds)
     const data = {name, psrObjectsIds};
     return this.boxService.create(data);
   }

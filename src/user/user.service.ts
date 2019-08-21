@@ -1,4 +1,4 @@
-import { Injectable, Body, HttpException, HttpStatus, Query } from '@nestjs/common';
+import { Injectable, Body, HttpException, HttpStatus, Query, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { UserDTO, UserRO } from './user.dto';
@@ -19,6 +19,7 @@ export class UserService {
        skip: 25 * (page - 1),
        take: 25,
       });
+      
      return users.map(user => user.toResponseObject(false));
   }
 
@@ -27,6 +28,9 @@ export class UserService {
       where: {username},
       relations: ['ideas', 'bookmarks'],
     });
+    if (!user) {
+      throw new NotFoundException();
+    }
     return user.toResponseObject(isShowPassword);
   }
 
@@ -44,10 +48,8 @@ export class UserService {
 
 
   async register(data: UserDTO): Promise<UserRO> {
-    console.log('register data', data)
     const {username} = data;
     let user = await this.userRepository.findOne({where: {username}});
-    console.log('register user', user)
 
     if (user) {
       throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
@@ -55,7 +57,6 @@ export class UserService {
 
     user = await this.userRepository.create(data);
     await this.userRepository.save(user);
-    console.log('return user', user.toResponseObject())
 
     return user.toResponseObject();
   }

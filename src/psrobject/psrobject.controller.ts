@@ -33,7 +33,6 @@ export class PsrobjectController {
     @Param('id') id: string,
     @Body() data: Partial<PsrobjectRQ>,
   ) {
-    console.log('===============update==============', id, data)
     return this.psrobjectService.update(id, data);
   }
 

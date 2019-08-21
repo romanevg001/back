@@ -19,7 +19,6 @@ export class ItemsController extends ItemsControllerParent {
 
   @Get()
   listItems(@Query() sss): Iitem[] {
-   // console.log( sss);npm
     return this.itemsService.findAll();
   }
 

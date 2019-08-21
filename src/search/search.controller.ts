@@ -10,7 +10,6 @@ export class SearchController {
 
   @Post()
   find(@Body() body: Partial<SearchDTO> ) {
-    console.log('======================body===================', body)
     return this.searchService.find(body);
   }
 

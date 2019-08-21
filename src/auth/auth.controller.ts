@@ -10,7 +10,7 @@ export interface Payload {
   username: string;
 }
 
-@Controller('api')
+@Controller()
 export class AuthController {
   constructor(
     private userService: UserService,
