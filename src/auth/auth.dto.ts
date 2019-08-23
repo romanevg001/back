@@ -9,7 +9,10 @@ export interface RegisterDTO {
   username: string;
   password: string;
   email: string;
-  //seller?: boolean;
-  // address?: Address;
+}
+
+export interface TokenDTO {
+  id: string;
+  username: string;
 }
 

@@ -8,19 +8,18 @@ import { UserService } from '../user/user.service';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
+import { UserRepository } from '../user/user.repository';
 import { GraphQLModule } from '@nestjs/graphql';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    PassportModule.register({
-      defaultStrategy: 'jwt',
- //     session: true,
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.SECRET,
+      signOptions: { expiresIn: '60s' },
     }),
-    TypeOrmModule.forFeature([UserEntity]),
-    // GraphQLModule.forRoot({
-    //   typePaths: ['./**/*.graphql'],
-    //   context: ({ req }) => ({ req }),
-    // }),
+    TypeOrmModule.forFeature([UserRepository, UserEntity]),
   ],
   controllers: [AuthController],
   providers: [

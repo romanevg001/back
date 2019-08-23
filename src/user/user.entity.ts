@@ -1,12 +1,12 @@
 
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BeforeInsert, OneToMany, ManyToMany, JoinTable} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BeforeInsert, OneToMany, ManyToMany, JoinTable, BaseEntity} from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { UserRO } from './user.dto';
 import { IdeaEntity } from '../idea/idea.entity';
 
 @Entity('user')
-export class UserEntity {
+export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -28,6 +28,9 @@ export class UserEntity {
   @Column('text')
   password: string;
 
+  @Column()
+  salt: string;
+
   @OneToMany(type => IdeaEntity, idea => idea.author)
   ideas: IdeaEntity[];
 
@@ -35,10 +38,10 @@ export class UserEntity {
   @JoinTable()
   bookmarks: IdeaEntity[];
 
-  @BeforeInsert()
-  async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
+  // @BeforeInsert()
+  // async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, 10);
+  // }
 
   toResponseObject(showToken: boolean = true): UserRO {
     const {id, created, username, email, token } = this;

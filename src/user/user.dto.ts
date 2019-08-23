@@ -1,14 +1,19 @@
-import {IsNotEmpty, IsEmail, IsString} from 'class-validator';
+import {IsNotEmpty, IsEmail, IsString, MinLength, MaxLength, Matches} from 'class-validator';
 import {IdeaEntity} from '../idea/idea.entity';
 
 export class UserDTO {
 
   @IsNotEmpty()
   @IsString()
+  @MinLength(3)
+  @MaxLength(11)
   username: string;
 
   @IsNotEmpty()
   @IsString()
+  @MinLength(3)
+  @MaxLength(11)
+  @Matches(/((?=.*d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {message: 'Password too weak'})
   password: string;
 
 }
@@ -30,4 +35,5 @@ export class UserRO {
   created: Date;
   token?: string;
   bookmarks?: IdeaEntity[];
+  password?: string;
 }

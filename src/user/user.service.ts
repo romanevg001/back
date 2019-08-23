@@ -75,7 +75,7 @@ export class UserService {
     return await this.userRepository.find();
   }
 
-  async findByLogin(userDTO: LoginDTO) {
+  async findByLogin(userDTO: LoginDTO): Promise<UserRO> {
     const { username, password } = userDTO;
     const user = await this.userRepository.findOne({ username });
     
@@ -95,10 +95,10 @@ export class UserService {
     return await this.userRepository.findOne({ username });
   }
 
-  sanitizeUser(user: UserDTO) {
+  sanitizeUser(user: UserDTO): UserRO {
     const sanitized = user;
     delete sanitized['password'];
-    return sanitized;
+    return sanitized as UserRO;
   }
 
 }
