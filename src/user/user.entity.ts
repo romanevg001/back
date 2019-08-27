@@ -44,13 +44,13 @@ export class UserEntity extends BaseEntity {
   // }
 
   toResponseObject(showToken: boolean = true): UserRO {
-    const {id, created, username, email, token } = this;
+    const {id, created, username, email } = this;
    // return {id, created, username, token};
     const responceObject: any = {id, created, username, email};
 
-    if (showToken) {
-      responceObject.token = token;
-    }
+    // if (showToken) {
+    //   responceObject.token = token;
+    // }
     if (this.ideas) {
       responceObject.ideas = this.ideas;
     }
@@ -64,15 +64,21 @@ export class UserEntity extends BaseEntity {
     return await bcrypt.compare(attempt, this.password);
   }
 
-  private get token() {
-    const {id, username} = this;
-    return jwt.sign(
-      {
-        id, username,
-      },
-      process.env.SECRET,
-      {expiresIn: '7d'},
-    );
+  // private get token() {
+  //   const {id, username} = this;
+  //   return jwt.sign(
+  //     {
+  //       id, username,
+  //     },
+  //     process.env.SECRET,
+  //     {expiresIn: '7d'},
+  //   );
+  // }
+
+  async validatePassword(pass: string): Promise<boolean> {
+    // console.log('validatePassword=>>>', bcrypt.compare(pass + process.env.SECRET, this.password));
+    /// const hash = await bcrypt.hash(pass + process.env.SECRET, this.salt);
+    return await bcrypt.compare(pass + process.env.SECRET, this.password); ///hash === this.password;
   }
 
 }

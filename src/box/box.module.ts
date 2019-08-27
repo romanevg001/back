@@ -5,12 +5,12 @@ import { BoxController } from './box.controller';
 import { BoxResolver } from './box.resolver';
 import { BoxService } from './box.service';
 import { PsrobjectEntity } from '../psrobject/psrobject.entity';
-import { PassportModule } from '@nestjs/passport';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([BoxEntity, PsrobjectEntity]),
-    PassportModule.register({ defaultStrategy: 'jwt', session: true }),
+    AuthModule,
   ],
   controllers: [BoxController],
   providers: [BoxResolver, BoxService],

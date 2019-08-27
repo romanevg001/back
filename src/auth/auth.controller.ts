@@ -1,11 +1,13 @@
-import { Body, Controller, Post, Get, Request, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post, Get, Request, UseGuards, ValidationPipe, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UserService } from '../user/user.service';
+// import { UserService } from '../user/user.service';
 
 // import { Payload } from '../types/payload';
 import { LoginDTO, RegisterDTO, TokenDTO } from './auth.dto';
-import { UserDTOFull } from '../user/user.dto';
+import { UserDTOFull, UserDTO } from '../user/user.dto';
 import { AuthService } from './auth.service';
+import { GetUser } from 'src/shared/user.decorator';
+import { UserEntity } from 'src/user/user.entity';
 // import { AuthCredentalsDTO } from './auth-credentails.dto';
 
 export interface Payload {
@@ -15,7 +17,7 @@ export interface Payload {
 @Controller()
 export class AuthController {
   constructor(
-    private userService: UserService,
+    // private userService: UserService,
     private authService: AuthService,
   ) {}
 
@@ -61,9 +63,20 @@ export class AuthController {
   // }
 
 
-  @Post('signup')
-  async signUp(@Body(ValidationPipe) authCredentalsDTO: UserDTOFull) {
-    return this.authService.sygnUp(authCredentalsDTO);
+  @Post('/signup')
+  async signUp(@Body(ValidationPipe) authCredentalsDTO: UserDTOFull): Promise<void> {
+    return this.authService.signUp(authCredentalsDTO);
+  }
+
+  @Post('/signin')
+  async signIn(@Body(ValidationPipe) authCredentalsDTO: UserDTO): Promise<{accessToken: string}> {
+    return this.authService.signIn(authCredentalsDTO);
+  }
+
+  @Post('/test')
+  @UseGuards(AuthGuard())
+  test(@GetUser() user: UserEntity) {
+    console.log('user=>>>>', user);
   }
 
 }

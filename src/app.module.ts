@@ -20,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { BoxResolver  } from './box/box.resolver';
 import { BoxService  } from './box/box.service';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -35,7 +36,6 @@ import { BoxService  } from './box/box.service';
     TagModule,
     TypeModule,
     SearchModule,
-    AuthModule,
     // GraphQLModule.forRoot({
     //   installSubscriptionHandlers: true,
     //   autoSchemaFile: 'schema.gql',

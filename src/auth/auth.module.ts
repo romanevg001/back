@@ -4,17 +4,17 @@ import { JwtStrategy } from './jwt.strategy';
 // import { LocalStrategy } from './local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { UserService } from '../user/user.service';
+// import { UserService } from '../user/user.service';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
 import { UserRepository } from '../user/user.repository';
-import { GraphQLModule } from '@nestjs/graphql';
+// import { GraphQLModule } from '@nestjs/graphql';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: process.env.SECRET,
       signOptions: { expiresIn: '60s' },
@@ -24,9 +24,12 @@ import { JwtModule } from '@nestjs/jwt';
   controllers: [AuthController],
   providers: [
       AuthService,
-      UserService,
+    //  UserService,
       JwtStrategy,
   ],
-  exports: [AuthService],
+  exports: [
+    PassportModule,
+    JwtStrategy,
+  ],
 })
 export class AuthModule {}

@@ -2,7 +2,7 @@ import { EntityRepository, Repository } from 'typeorm';
 import { ConflictException, InternalServerErrorException } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { UserEntity } from './user.entity';
-import { UserDTOFull } from './user.dto';
+import { UserDTOFull, UserDTO } from './user.dto';
 
 @EntityRepository(UserEntity)
 export class UserRepository extends Repository<UserEntity> {
@@ -14,7 +14,6 @@ export class UserRepository extends Repository<UserEntity> {
     user.salt = await bcrypt.genSalt();
     user.password = await bcrypt.hash(password + process.env.SECRET, user.salt);
     user.email = email;
-
     try {
      await user.save();
     } catch (err) {
@@ -26,6 +25,17 @@ export class UserRepository extends Repository<UserEntity> {
         throw new InternalServerErrorException();
       }
     }
+  }
+
+  async validateUserPassword(authCredentalsDTO: UserDTO): Promise<string> {
+    const {username, password} = authCredentalsDTO;
+    const user = await this.findOne({ username });
+    if (user && await user.validatePassword(password)) {
+      return user.username;
+    } else {
+      return null;
+    }
+
   }
 
 }

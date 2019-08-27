@@ -1,9 +1,11 @@
 import { Controller, Post, Get, Body, Query, UseGuards, Param, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { UserDTO, UserDTOFull } from './user.dto';
 // import { ValidationPipe } from 'src/shared/validation.pipe';
 // import { User } from './user.decorator';
-import { GqlAuthGuard } from '../auth/gqlauth.guard';
+//import { GqlAuthGuard } from '../auth/gqlauth.guard';
+
 
 @Controller('api')
 export class UserController {
@@ -13,26 +15,27 @@ export class UserController {
   ) {}
 
   @Get('users')
-  @UseGuards(GqlAuthGuard)
+  // @UseGuards(AuthGuard())
   showAllUsers(@Query('page') page: number) {
     return this.userService.showAll(page);
   }
 
   @Get('user/:username')
+  // @UseGuards(AuthGuard())
   read(@Param('username') username: string) {
     return this.userService.read(username);
   }
 
-  @Post('login')
-  login(@Body() data: UserDTO) {
-    return this.userService.login(data);
+  // @Post('login')
+  // login(@Body() data: UserDTO) {
+  //   return this.userService.login(data);
 
-  }
+  // }
 
-  @Post('register')
-  register(@Body() data: UserDTOFull) {
-    return this.userService.register(data);
-  }
+  // @Post('register')
+  // register(@Body() data: UserDTOFull) {
+  //   return this.userService.register(data);
+  // }
 
   @Put('user/:id')
   update(@Param('id') id: string, @Body() data: UserDTOFull) {
