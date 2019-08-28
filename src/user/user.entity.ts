@@ -28,7 +28,7 @@ export class UserEntity extends BaseEntity {
   @Column('text')
   password: string;
 
-  @Column()
+  @Column('text')
   salt: string;
 
   @OneToMany(type => IdeaEntity, idea => idea.author)
