@@ -8,7 +8,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 const port = process.env.PORT || 3002;
 
 async function bootstrap() {
-
+  const logger = new Logger('bootstrap');
   const server = await NestFactory.create(AppModule, {
     bodyParser: true,
     cors: true,
@@ -26,6 +26,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', server, document);
 
   await server.listen(port);
-  Logger.log('Run on port:' + port);
+  logger.log('Run on port:' + port);
 }
 bootstrap();

@@ -2,7 +2,7 @@ import { Injectable, Body, HttpException, HttpStatus, Query, NotFoundException }
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { UserDTO, UserRO } from './user.dto';
-import { Repository } from 'typeorm';
+import { Repository, DeleteResult } from 'typeorm';
 import { LoginDTO, RegisterDTO } from '../auth/auth.dto';
 import * as bcrypt from 'bcryptjs';
 
@@ -100,5 +100,12 @@ export class UserService {
     delete sanitized['password'];
     return sanitized as UserRO;
   }
+
+
+  
+  async deleteUser(userId: string): Promise<DeleteResult> {
+    return await this.userRepository.delete({ id: userId });
+  }
+
 
 }

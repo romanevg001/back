@@ -11,9 +11,10 @@ import { TagService} from '../tag/tag.service';
 import { TypeEntity} from '../type/type.entity';
 import { TypeService} from '../type/type.service';
 import { DictionaryService } from 'src/dictionaries/dictionary.service';
+import { PsrobjectRepository } from './psrobject.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ PsrobjectEntity, DepartmentEntity, RegionEntity, TagEntity, TypeEntity])],
+  imports: [TypeOrmModule.forFeature([ PsrobjectEntity, DepartmentEntity, RegionEntity, TagEntity, TypeEntity, PsrobjectRepository])],
   controllers: [PsrobjectController],
   providers: [PsrobjectService, PsrobjectResolver, TagService, TypeService, DictionaryService],
 })

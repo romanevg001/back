@@ -1,4 +1,5 @@
-import {IsString, IsInt} from 'class-validator';
+import {IsString, IsInt, IsIn, IsOptional} from 'class-validator';
+import {TypeOfFile} from './file.entity';
 
 export class FileDTO {
 
@@ -16,6 +17,10 @@ export class FileDTO {
 
   @IsInt()
   views: number;
+
+  @IsOptional()
+  @IsIn([TypeOfFile.archive, TypeOfFile.doc, TypeOfFile.img, TypeOfFile.pdf, TypeOfFile.ppt, TypeOfFile.video, TypeOfFile.xls])
+  type: TypeOfFile;
 
 }
 

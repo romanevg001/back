@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Query, UseGuards, Param, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Get, Body, Query, UseGuards, Delete, Param, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { UserDTO, UserDTOFull } from './user.dto';
@@ -24,6 +24,12 @@ export class UserController {
   // @UseGuards(AuthGuard())
   read(@Param('username') username: string) {
     return this.userService.read(username);
+  }
+
+  @Delete('user/:id')
+  // @UseGuards(AuthGuard())
+  delete(@Param('id') id: string) {
+    return this.userService.deleteUser(id);
   }
 
   // @Post('login')

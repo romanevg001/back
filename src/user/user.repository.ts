@@ -6,6 +6,7 @@ import { UserDTOFull, UserDTO } from './user.dto';
 
 @EntityRepository(UserEntity)
 export class UserRepository extends Repository<UserEntity> {
+
   async signUp(authCredentalsDTO: UserDTOFull): Promise<void> {
     const {username, password, email} = authCredentalsDTO;
 
@@ -37,6 +38,8 @@ export class UserRepository extends Repository<UserEntity> {
     }
 
   }
+
+
 
 }
 

@@ -3,11 +3,15 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { PsrobjectEntity } from './psrobject.entity';
+import { PsrobjectRepository } from './psrobject.repository';
 import { PsrobjectDTO, PsrobjectRQ } from './psrobject.dto';
 import { DepartmentEntity} from '../dictionaries/departments/department.entity';
 import { RegionEntity} from '../dictionaries/regions/region.entity';
 import { TagEntity} from '../tag/tag.entity';
 import { TypeEntity} from '../type/type.entity';
+import { FilterPsrobjectDTO} from './filter-psrobject.dto';
+import { UserEntity } from 'src/user/user.entity';
+
 
 @Injectable()
 export class PsrobjectService {
@@ -22,7 +26,15 @@ export class PsrobjectService {
     private tagRepository: Repository<TagEntity>,
     @InjectRepository(TypeEntity)
     private typeRepository: Repository<TypeEntity>,
+
+    @InjectRepository(PsrobjectRepository)
+    private psrobjectRepository2: PsrobjectRepository,
+
   ) {
+  }
+
+  async getPsrobject(filterPsrobjectDTO: FilterPsrobjectDTO, user: UserEntity): Promise<PsrobjectEntity[]> {
+    return this.psrobjectRepository2.getPsrobject(filterPsrobjectDTO, user);
   }
 
   async getList(page: number = 1) {

@@ -6,5 +6,8 @@ export const CurrentUser = createParamDecorator(
 );
 
 export const GetUser = createParamDecorator(
-  (data, req): UserEntity => req.user,
+  (data, req): UserEntity => {
+console.log('req.user',req.user)
+    return req.user;
+  }
 );
