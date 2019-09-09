@@ -21,10 +21,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { BoxResolver  } from './box/box.resolver';
 import { BoxService  } from './box/box.service';
 import { PassportModule } from '@nestjs/passport';
+import { typeOrmConfig } from '../typeorm.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot(typeOrmConfig),
     ItemsModule,
     IdeaModule,
     UserModule,

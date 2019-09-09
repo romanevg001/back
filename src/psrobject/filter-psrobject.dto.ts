@@ -3,8 +3,6 @@ import {IsString, IsInt, IsArray, IsBoolean, IsNotEmpty, IsEmpty, IsBooleanStrin
 export class FilterPsrobjectDTO {
 
   status: string;
-
-
   search: string;
 
 }
