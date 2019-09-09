@@ -5,6 +5,10 @@ import { PsrobjectDTO } from './psrobject.dto';
 import { TagService } from 'src/tag/tag.service';
 import { TypeService } from 'src/type/type.service';
 import { DictionaryService } from 'src/dictionaries/dictionary.service';
+import { GqlAuthGuard } from '../auth/gqlauth.guard';
+import { CurrentUser } from '../shared/user.decorator';
+import { UserEntity } from '../user/user.entity';
+
 
 @Resolver('Psrobject')
 export class PsrobjectResolver {
@@ -18,9 +22,17 @@ export class PsrobjectResolver {
   }
 
   @Query()
-  async psrobjects(@Args('page') page: number) {
+  @UseGuards(GqlAuthGuard)
+  async psrobjects(
+    @Args('page') page: number,
+    @CurrentUser() user: UserEntity,
+  ) {
+    console.log('user ==> ', user);
     return await this.psrobjectService.getList(page);
   }
+
+
+
 
   @Query()
   psrobject(@Args('id') id: string) {

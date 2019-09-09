@@ -30,6 +30,7 @@ export class PsrobjectController {
   }
 
   @Get()
+  @UseGuards(AuthGuard())
   getList(
     @Query('page') page: number,
     ) {
