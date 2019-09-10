@@ -4,6 +4,7 @@ import { JwtStrategy } from './jwt.strategy';
 // import { LocalStrategy } from './local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
+import { AuthResolver } from './auth.resolver';
 // import { UserService } from '../user/user.service';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -28,6 +29,7 @@ const jwtConfig = config.get('jwt');
   controllers: [AuthController],
   providers: [
       AuthService,
+      AuthResolver,
     //  UserService,
       JwtStrategy,
   ],

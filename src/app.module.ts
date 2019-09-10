@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdeaModule } from './idea/idea.module';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { HttpErrorFilter } from './shared/http-error.filter';
+import { GqlHttpExceptionFilter } from './shared/gql-http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 import { ValidationPipe } from './shared/validation.pipe';
 import { UserModule } from './user/user.module';
@@ -22,6 +23,7 @@ import { BoxResolver  } from './box/box.resolver';
 import { BoxService  } from './box/box.service';
 import { PassportModule } from '@nestjs/passport';
 import { typeOrmConfig } from '../typeorm.config';
+
 
 @Module({
   imports: [
@@ -53,7 +55,8 @@ import { typeOrmConfig } from '../typeorm.config';
   controllers: [
   ],
   providers: [
-    {provide: APP_FILTER, useClass: HttpErrorFilter },
+ //   {provide: APP_FILTER, useClass: HttpErrorFilter },
+    {provide: 'APP_FILTER_GQL', useClass: GqlHttpExceptionFilter },
     {provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
     {provide: APP_PIPE, useClass: ValidationPipe },
   ],

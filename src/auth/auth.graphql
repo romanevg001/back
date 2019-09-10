@@ -1,0 +1,12 @@
+
+
+type UserDTO {
+  username: String!
+  password: String!
+}
+
+type Query {
+  login(username: String!, password: String!): UserDTO
+  # psrobject(id: ID!): Psrobject!
+
+}

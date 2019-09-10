@@ -20,7 +20,6 @@ export class PsrobjectController {
   ) {}
 
   @Get('objects')
-  @UseGuards(AuthGuard())
   getPsrobject(
     @Query(ValidationPipe) filterPsrobjectDTO: FilterPsrobjectDTO,
     @GetUser() user: UserEntity,
@@ -30,7 +29,6 @@ export class PsrobjectController {
   }
 
   @Get()
-  @UseGuards(AuthGuard())
   getList(
     @Query('page') page: number,
     ) {
@@ -45,7 +43,7 @@ export class PsrobjectController {
   }
 
   @Post()
-  // @UseGuards(new AuthGuard())
+  @UseGuards(AuthGuard())
   create(
     @Body() data: PsrobjectRQ,
   ) {
@@ -53,7 +51,7 @@ export class PsrobjectController {
   }
 
   @Put(':id')
-  // @UseGuards(new AuthGuard())
+  @UseGuards(AuthGuard())
   update(
     @Param('id') id: string,
     @Body() data: Partial<PsrobjectRQ>,
@@ -62,7 +60,7 @@ export class PsrobjectController {
   }
 
   @Delete(':id')
-  // @UseGuards(new AuthGuard())
+  @UseGuards(AuthGuard())
   destroy(@Param('id') id: string ) {
     return this.psrobjectService.destroy(id);
   }
