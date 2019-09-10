@@ -5,8 +5,16 @@ type UserDTO {
   password: String!
 }
 
+type LoginRes {
+  id: ID!
+  created: String!
+  username: String!
+  email: String!
+  accessToken: String!
+}
+
 type Query {
-  login(username: String!, password: String!): UserDTO
+  signIn(username: String!, password: String!): LoginRes! 
   # psrobject(id: ID!): Psrobject!
 
 }

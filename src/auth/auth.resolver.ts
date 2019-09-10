@@ -12,11 +12,11 @@ export class AuthResolver {
   }
 
   @Query()
-  async login(
+  signIn(
     @Args('authCredentalsDTO') authCredentalsDTO: UserDTO,
-  ) {
+  ): Promise<any>  {
     console.log('authCredentalsDTO ==> ', authCredentalsDTO);
-    return await this.authService.signIn(authCredentalsDTO);
+    return this.authService.signIn(authCredentalsDTO);
   }
 
 

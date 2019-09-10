@@ -2,7 +2,7 @@ import { EntityRepository, Repository } from 'typeorm';
 import { ConflictException, InternalServerErrorException } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { UserEntity } from './user.entity';
-import { UserDTOFull, UserDTO } from './user.dto';
+import { UserDTOFull, UserDTO, UserRO } from './user.dto';
 
 @EntityRepository(UserEntity)
 export class UserRepository extends Repository<UserEntity> {
@@ -28,11 +28,11 @@ export class UserRepository extends Repository<UserEntity> {
     }
   }
 
-  async validateUserPassword(authCredentalsDTO: UserDTO): Promise<string> {
+  async validateUserPassword(authCredentalsDTO: UserDTO): Promise<UserRO> {
     const {username, password} = authCredentalsDTO;
     const user = await this.findOne({ username });
     if (user && await user.validatePassword(password)) {
-      return user.username;
+      return user.toResponseObject();
     } else {
       return null;
     }

@@ -31,24 +31,24 @@ export class UserResolver {
     return this.userService.read(username);
   }
 
-  @Mutation()
-  login(
-    @Args('username') username: string,
-    @Args('password') password: string,
-  ) {
-    const user: UserDTO = {username, password};
-    return this.userService.login(user);
-  }
+  // @Mutation()
+  // login(
+  //   @Args('username') username: string,
+  //   @Args('password') password: string,
+  // ) {
+  //   const user: UserDTO = {username, password};
+  //   return this.userService.login(user);
+  // }
 
-  @Mutation()
-  register(
-    @Args('username') username: string,
-    @Args('password') password: string,
-    @Args('email') email: string,
-  ) {
-    const user: UserDTOFull = {username, password, email};
-    return this.userService.register(user);
-  }
+  // @Mutation()
+  // register(
+  //   @Args('username') username: string,
+  //   @Args('password') password: string,
+  //   @Args('email') email: string,
+  // ) {
+  //   const user: UserDTOFull = {username, password, email};
+  //   return this.userService.register(user);
+  // }
 
   @ResolveProperty()
   comments(@Parent() user) {
