@@ -13,10 +13,11 @@ export class AuthResolver {
 
   @Query()
   signIn(
-    @Args('authCredentalsDTO') authCredentalsDTO: UserDTO,
+    @Args('username') username: string,
+    @Args('password') password: string,
   ): Promise<any>  {
-    console.log('authCredentalsDTO ==> ', authCredentalsDTO);
-    return this.authService.signIn(authCredentalsDTO);
+    console.log('authCredentalsDTO ==> ', username, password);
+    return this.authService.signIn({username, password});
   }
 
 

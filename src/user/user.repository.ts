@@ -1,13 +1,15 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { ConflictException, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, InternalServerErrorException, Logger } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { UserEntity } from './user.entity';
 import { UserDTOFull, UserDTO, UserRO } from './user.dto';
 
 @EntityRepository(UserEntity)
 export class UserRepository extends Repository<UserEntity> {
+  logger = new Logger('UserRepository');
 
   async signUp(authCredentalsDTO: UserDTOFull): Promise<void> {
+    this.logger.verbose(`signUp: ${authCredentalsDTO}`);
     const {username, password, email} = authCredentalsDTO;
 
     const user = new UserEntity();
@@ -29,8 +31,14 @@ export class UserRepository extends Repository<UserEntity> {
   }
 
   async validateUserPassword(authCredentalsDTO: UserDTO): Promise<UserRO> {
+    this.logger.verbose(`validateUserPassword: ${JSON.stringify(authCredentalsDTO)}`);
     const {username, password} = authCredentalsDTO;
+
     const user = await this.findOne({ username });
+    this.logger.verbose(`validateUserPassword user: ${JSON.stringify(user)}`);
+
+    console.log('validatePassword', password, await user.validatePassword(password));
+
     if (user && await user.validatePassword(password)) {
       return user.toResponseObject();
     } else {

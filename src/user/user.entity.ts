@@ -1,9 +1,10 @@
 
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BeforeInsert, OneToMany, ManyToMany, JoinTable, BaseEntity} from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
 import { UserRO } from './user.dto';
 import { IdeaEntity } from '../idea/idea.entity';
+import * as config from 'config';
+const jwtConfig = config.get('jwt');
 
 @Entity('user')
 export class UserEntity extends BaseEntity {
@@ -78,7 +79,7 @@ export class UserEntity extends BaseEntity {
   async validatePassword(pass: string): Promise<boolean> {
     // console.log('validatePassword=>>>', bcrypt.compare(pass + process.env.SECRET, this.password));
     /// const hash = await bcrypt.hash(pass + process.env.SECRET, this.salt);
-    return await bcrypt.compare(pass + process.env.SECRET, this.password); ///hash === this.password;
+    return await bcrypt.compare(pass + (process.env.SECRET || jwtConfig.secret), this.password); ///hash === this.password;
   }
 
 }
