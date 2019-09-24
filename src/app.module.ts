@@ -1,4 +1,4 @@
-import { Module, NestModule, MiddlewareConsumer  } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, CacheModule  } from '@nestjs/common';
 import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdeaModule } from './idea/idea.module';
@@ -24,9 +24,9 @@ import { BoxService  } from './box/box.service';
 import { PassportModule } from '@nestjs/passport';
 import { typeOrmConfig } from '../typeorm.config';
 
-
 @Module({
   imports: [
+    CacheModule.register(),
     TypeOrmModule.forRoot(typeOrmConfig),
     ItemsModule,
     IdeaModule,

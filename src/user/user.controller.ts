@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Query, UseGuards, Delete, Param, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Get, Body, Query, UseGuards, Delete, Param, Put, CacheInterceptor, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { UserDTO, UserDTOFull } from './user.dto';
@@ -8,6 +8,7 @@ import { UserDTO, UserDTOFull } from './user.dto';
 
 
 @Controller('api')
+@UseInterceptors(CacheInterceptor)
 export class UserController {
 
   constructor(
