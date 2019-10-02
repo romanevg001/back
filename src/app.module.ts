@@ -1,4 +1,5 @@
 import { Module, NestModule, MiddlewareConsumer, CacheModule  } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdeaModule } from './idea/idea.module';
@@ -23,6 +24,7 @@ import { BoxResolver  } from './box/box.resolver';
 import { BoxService  } from './box/box.service';
 import { PassportModule } from '@nestjs/passport';
 import { typeOrmConfig } from '../typeorm.config';
+import { RoleGuard } from './shared/role.guard';
 
 @Module({
   imports: [
@@ -59,6 +61,10 @@ import { typeOrmConfig } from '../typeorm.config';
     {provide: 'APP_FILTER_GQL', useClass: GqlHttpExceptionFilter },
     {provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
     {provide: APP_PIPE, useClass: ValidationPipe },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
   ],
 })
 export class AppModule {}

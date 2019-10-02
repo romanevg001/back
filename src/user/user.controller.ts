@@ -4,11 +4,12 @@ import { UserService } from './user.service';
 import { UserDTO, UserDTOFull } from './user.dto';
 // import { ValidationPipe } from 'src/shared/validation.pipe';
 // import { User } from './user.decorator';
-//import { GqlAuthGuard } from '../auth/gqlauth.guard';
+// import { RoleGuard } from '../shared/role.guard';
+import { Roles } from '../shared/roles.decorator';
 
 
 @Controller('api')
-@UseInterceptors(CacheInterceptor)
+// @UseInterceptors(CacheInterceptor)
 export class UserController {
 
   constructor(
@@ -16,7 +17,7 @@ export class UserController {
   ) {}
 
   @Get('users')
-  // @UseGuards(AuthGuard())
+  @Roles('admin')
   showAllUsers(@Query('page') page: number) {
     return this.userService.showAll(page);
   }
