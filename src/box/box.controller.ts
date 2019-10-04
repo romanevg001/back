@@ -1,4 +1,6 @@
-import { Controller, Get, Post, Delete, Body, Param, Put, Logger, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Redirect, UseGuards } from '@nestjs/common';
+// import {  Redirect } from '@nestjs/common/decorators/http/redirect.decorator';
+
 import { BoxService } from './box.service';
 import { AuthGuard } from '@nestjs/passport';
 import { BoxRQ } from './box.dto';
@@ -25,5 +27,12 @@ export class BoxController {
   create(@Body() data: BoxRQ ) {
     return this.boxService.create(data);
   }
+
+  @Get('docs')
+  @Redirect('https://docs.nestjs.com', 301)
+  redirect () {
+  }
+
+
 
 }
