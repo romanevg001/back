@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Delete, Body, Redirect, UseGuards } from '@nestjs/common';
-// import {  Redirect } from '@nestjs/common/decorators/http/redirect.decorator';
+import { Controller, Get, Post, Param, Body, Redirect, UseGuards } from '@nestjs/common';
 
 import { BoxService } from './box.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -23,7 +22,7 @@ export class BoxController {
   }
 
   @Post()
-  @UseGuards(AuthGuard())
+  //@UseGuards(AuthGuard())
   create(@Body() data: BoxRQ ) {
     return this.boxService.create(data);
   }

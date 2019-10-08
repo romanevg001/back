@@ -33,6 +33,7 @@ export class BoxService {
 
   async create(data: BoxRQ): Promise<BoxDTO> {
     const psrObjects = await this.psrobjectRepository.find({where: data.psrObjectsIds.map(el => ({id: el}))});
+
     delete data.psrObjectsIds;
     const box = await this.boxRepository.create({...data, psrObjects});
     await this.boxRepository.save(box);
