@@ -3,6 +3,7 @@ import { Controller, Get, Post, Param, Body, Redirect, UseGuards } from '@nestjs
 import { BoxService } from './box.service';
 import { AuthGuard } from '@nestjs/passport';
 import { BoxRQ } from './box.dto';
+import { MessagePattern, EventPattern } from '@nestjs/microservices';
 
 @Controller('api/box')
 export class BoxController {
@@ -23,6 +24,7 @@ export class BoxController {
 
   @Post()
   //@UseGuards(AuthGuard())
+  @EventPattern('box_created')
   create(@Body() data: BoxRQ ) {
     return this.boxService.create(data);
   }
@@ -32,6 +34,11 @@ export class BoxController {
   redirect () {
   }
 
+
+  @MessagePattern({ cmd: 'sum' })
+  accumulate(data: number[]): number {
+    return (data || []).reduce((a, b) => a + b);
+  }
 
 
 }
