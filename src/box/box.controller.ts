@@ -12,7 +12,7 @@ export class BoxController {
   ) {}
 
   @Get()
-  @UseGuards(AuthGuard())
+  @MessagePattern('LIST_BOX')
   readList() {
     return this.boxService.readList();
   }
@@ -23,7 +23,7 @@ export class BoxController {
   }
 
   @Post()
-  //@UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   @EventPattern('box_created')
   create(@Body() data: BoxRQ ) {
     return this.boxService.create(data);

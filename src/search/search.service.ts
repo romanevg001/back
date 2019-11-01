@@ -1,16 +1,16 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, Inject } from '@nestjs/common';
 import { Repository, Like } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { combineLatest, from } from 'rxjs';
 
 import { PsrobjectEntity } from '../psrobject/psrobject.entity';
 import { BoxEntity } from '../box/box.entity';
 import { SearchDTO } from './search.dto';
-import { Observable } from 'apollo-link';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class SearchService {
   constructor(
+    @Inject('BoxMicroservice') private readonly boxMicroservice: ClientProxy,
     @InjectRepository(PsrobjectEntity)
     private psrobjectRepository: Repository<PsrobjectEntity>,
     @InjectRepository(BoxEntity)
@@ -22,7 +22,7 @@ export class SearchService {
 
     return await this.searchInPsrObjects(data);
 
-}
+  }
 
   async find(data: Partial<SearchDTO>) {
     const searchPromises = [];
@@ -56,6 +56,9 @@ export class SearchService {
   }
 
    async searchInBoxSolutions(data: Partial<SearchDTO>): Promise<BoxEntity[]> {
+    const sss = await this.boxMicroservice.send({ cmd: 'LIST_BOX' }, data);
+    console.log('sss', sss);
+
     return await this.boxRepository.find({
       where: [
         (data.requestedString) ? {name: Like('%' + data.requestedString + '%')} : {},
