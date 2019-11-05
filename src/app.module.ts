@@ -22,6 +22,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 import { typeOrmConfig } from '../typeorm.config';
 import { RoleGuard } from './shared/role.guard';
+import { BoxController } from './pagebox/box.controller';
 
 @Module({
   imports: [
@@ -39,7 +40,7 @@ import { RoleGuard } from './shared/role.guard';
     TypeModule,
     SearchModule,
     ClientsModule.register([
-      { name: 'BoxMicroservice', transport: Transport.TCP },
+      { name: 'BoxMicroservice', transport: Transport.TCP, options: { host: 'localhost', port: 8877 } },
     ]),
 
     GraphQLModule.forRoot({
@@ -49,6 +50,7 @@ import { RoleGuard } from './shared/role.guard';
     }),
   ],
   controllers: [
+    BoxController,
   ],
   providers: [
  //   {provide: APP_FILTER, useClass: HttpErrorFilter },
@@ -59,6 +61,8 @@ import { RoleGuard } from './shared/role.guard';
       provide: APP_GUARD,
       useClass: RoleGuard,
     },
+
+  
   ],
 })
 export class AppModule {}

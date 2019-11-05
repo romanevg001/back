@@ -3,18 +3,18 @@ import { Repository, Like } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { PsrobjectEntity } from '../psrobject/psrobject.entity';
-import { BoxEntity } from '../box/box.entity';
+// import { BoxEntity } from '../box/box.entity';
 import { SearchDTO } from './search.dto';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class SearchService {
   constructor(
-    @Inject('BoxMicroservice') private readonly boxMicroservice: ClientProxy,
+    // @Inject('BoxMicroservice') private readonly boxMicroservice: ClientProxy,
     @InjectRepository(PsrobjectEntity)
     private psrobjectRepository: Repository<PsrobjectEntity>,
-    @InjectRepository(BoxEntity)
-    private boxRepository: Repository<BoxEntity>,
+    // @InjectRepository(BoxEntity)
+    // private boxRepository: Repository<BoxEntity>,
   ) {
   }
 
@@ -30,7 +30,7 @@ export class SearchService {
       searchPromises.push(this.searchInPsrObjects(data));
     }
     if (data.searchInBoxSolutions) {
-      searchPromises.push(this.searchInBoxSolutions(data));
+  //    searchPromises.push(this.searchInBoxSolutions(data));
     }
     // if (data.searchInDocuments) {
 
@@ -55,17 +55,17 @@ export class SearchService {
     });
   }
 
-   async searchInBoxSolutions(data: Partial<SearchDTO>): Promise<BoxEntity[]> {
-    const sss = await this.boxMicroservice.send({ cmd: 'LIST_BOX' }, data);
-    console.log('sss', sss);
+  //  async searchInBoxSolutions(data: Partial<SearchDTO>): Promise<BoxEntity[]> {
+  //   const sss = await this.boxMicroservice.send({ cmd: 'LIST_BOX' }, data);
+  //   console.log('sss', sss);
 
-    return await this.boxRepository.find({
-      where: [
-        (data.requestedString) ? {name: Like('%' + data.requestedString + '%')} : {},
-      ],
-      relations: ['psrObjects'],
-    });
-  }
+  //   // return await this.boxRepository.find({
+  //   //   where: [
+  //   //     (data.requestedString) ? {name: Like('%' + data.requestedString + '%')} : {},
+  //   //   ],
+  //   //   relations: ['psrObjects'],
+  //   // });
+  // }
 
 }
 

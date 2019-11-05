@@ -5,40 +5,41 @@ import { AuthGuard } from '@nestjs/passport';
 import { BoxRQ } from './box.dto';
 import { MessagePattern, EventPattern } from '@nestjs/microservices';
 
-@Controller('api/box')
+@Controller()
 export class BoxController {
   constructor(
     private boxService: BoxService,
   ) {}
 
-  @Get()
-  @MessagePattern('LIST_BOX')
+  @EventPattern('LIST_BOX')
   readList() {
+    console.log('@MessagePattern(LIST_BOX)');
+
     return this.boxService.readList();
   }
 
-  @Get(':id')
-  read(@Param('id') id: string) {
-    return this.boxService.read(id);
-  }
+  // @Get(':id')
+  // read(@Param('id') id: string) {
+  //   return this.boxService.read(id);
+  // }
 
-  @Post()
-  @UseGuards(AuthGuard())
-  @EventPattern('box_created')
-  create(@Body() data: BoxRQ ) {
-    return this.boxService.create(data);
-  }
+  // @Post()
+  // @UseGuards(AuthGuard())
+  // @EventPattern('box_created')
+  // create(@Body() data: BoxRQ ) {
+  //   return this.boxService.create(data);
+  // }
 
-  @Get('docs')
-  @Redirect('https://docs.nestjs.com', 301)
-  redirect () {
-  }
+  // @Get('docs')
+  // @Redirect('https://docs.nestjs.com', 301)
+  // redirect () {
+  // }
 
 
-  @MessagePattern({ cmd: 'sum' })
-  accumulate(data: number[]): number {
-    return (data || []).reduce((a, b) => a + b);
-  }
+  // @MessagePattern({ cmd: 'sum' })
+  // accumulate(data: number[]): number {
+  //   return (data || []).reduce((a, b) => a + b);
+  // }
 
 
 }
