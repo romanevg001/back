@@ -22,7 +22,7 @@ const jwtConfig = config.get('jwt');
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: process.env.SECRET || jwtConfig.secret ,
-      signOptions: { expiresIn: jwtConfig.expiresIn || '60s' },
+      signOptions: { expiresIn: jwtConfig.expiresIn || '1h' },
     }),
     TypeOrmModule.forFeature([UserRepository, UserEntity]),
   ],

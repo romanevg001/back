@@ -1,5 +1,4 @@
 import { Module, CacheModule  } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import { APP_GUARD } from '@nestjs/core';
 import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -22,7 +21,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 import { typeOrmConfig } from '../typeorm.config';
 import { RoleGuard } from './shared/role.guard';
-import { BoxController } from './pagebox/box.controller';
+import { PageBoxModule } from './pagebox/pagebox.module';
 
 @Module({
   imports: [
@@ -39,18 +38,16 @@ import { BoxController } from './pagebox/box.controller';
     TagModule,
     TypeModule,
     SearchModule,
-    ClientsModule.register([
-      { name: 'BoxMicroservice', transport: Transport.TCP, options: { host: 'localhost', port: 8877 } },
-    ]),
 
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       typePaths: ['./**/*.graphql'],
       context: ({req}) => ({ req }),
     }),
+    PageBoxModule,
   ],
   controllers: [
-    BoxController,
+    // BoxController,
   ],
   providers: [
  //   {provide: APP_FILTER, useClass: HttpErrorFilter },

@@ -2,18 +2,21 @@ import { Controller, Get, Post, Param, Body, Redirect, UseGuards } from '@nestjs
 
 import { BoxService } from './box.service';
 import { AuthGuard } from '@nestjs/passport';
+import { Logger } from '@nestjs/common';
 import { BoxRQ } from './box.dto';
 import { MessagePattern, EventPattern } from '@nestjs/microservices';
 
 @Controller()
 export class BoxController {
+  private logger = new Logger('BoxController');
+
   constructor(
     private boxService: BoxService,
   ) {}
 
-  @EventPattern('LIST_BOX')
+  @MessagePattern('LIST_BOX')
   readList() {
-    console.log('@MessagePattern(LIST_BOX)');
+    this.logger.verbose('@MessagePattern(LIST_BOX)');
 
     return this.boxService.readList();
   }

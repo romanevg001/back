@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PsrobjectController } from './psrobject.controller';
+// import { PsrobjectController } from './psrobject.controller';
 import { PsrobjectService } from './psrobject.service';
 import { PsrobjectEntity } from './psrobject.entity';
 import { PsrobjectResolver } from './psrobject.resolver';
@@ -19,7 +19,7 @@ import { AuthModule } from 'src/auth/auth.module';
     AuthModule,
     TypeOrmModule.forFeature([ PsrobjectEntity, DepartmentEntity, RegionEntity, TagEntity, TypeEntity, PsrobjectRepository])
   ],
-  controllers: [PsrobjectController],
+  // controllers: [PsrobjectController],
   providers: [PsrobjectService, PsrobjectResolver, TagService, TypeService, DictionaryService],
 })
 export class PsrobjectModule {}

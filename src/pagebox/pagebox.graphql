@@ -9,7 +9,7 @@ type Box {
 }
 
 type Query {
-  boxes(page: Float): [Box!]!
+  boxes(page: Int): [Box!]!
   box(id: ID!): Box!
 }
 
