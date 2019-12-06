@@ -24,14 +24,25 @@ export class PageBoxResolver {
 
   }
 
-  async onApplicationBootstrap() {
-    this.logger.verbose(`onApplicationBootstrap boxes:`);
-    await this.boxMicroservice.connect();
-  }
+  // async onApplicationBootstrap() {
+  //   this.logger.verbose(`onApplicationBootstrap boxes:`);
+  //   await this.boxMicroservice.connect();
+  // }
 
   @Query()
   async boxes(@Args('page') page: number) {
     this.logger.verbose(`Query boxes: ${JSON.stringify(this.boxMicroservice.send<string[]>('LIST_BOX', []))}`);
+    this.boxMicroservice.send<string[]>('LIST_BOX', [])
+    .subscribe({
+      next: boxes => {
+        this.logger.verbose(`boxMicroservice.send boxes: ${boxes}`);
+        // res.status(HttpStatus.OK).json(users);
+      },
+      error: error => {
+        // res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
+      },
+    });
+
     return this.boxMicroservice.send<string[]>('LIST_BOX', []);
   }
 

@@ -22,11 +22,11 @@ async function bootstrap() {
     transport: Transport.TCP,
   });
   await boxApp.listenAsync();
-  // await boxApp.listen(() => console.log('Microservice is listening'));
+  await boxApp.listen(() => console.log('Microservice is listening'));
 
   // server.connectMicroservice({
   //   transport: Transport.TCP,
-  //   // options: { host: '127.0.0.1', port: 8877 },
+  //   options: { port: 5667 },
   // });
 
   // await server.startAllMicroservicesAsync();

@@ -10,7 +10,7 @@ import { typeOrmConfig } from '../../typeorm.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeOrmConfig),
+    // TypeOrmModule.forRoot(typeOrmConfig),
     TypeOrmModule.forFeature([BoxEntity, PsrobjectEntity]),
     // AuthModule,
   ],

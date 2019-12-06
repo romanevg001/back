@@ -16,7 +16,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   // ],
   imports: [
     ClientsModule.register([
-      { name: 'BoxMicroservice', transport: Transport.TCP },
+      { name: 'BoxMicroservice', transport: Transport.TCP, options: { port: 5667 } },
     ]),
   ],
   providers: [PageBoxResolver],
