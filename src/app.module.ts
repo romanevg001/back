@@ -18,13 +18,15 @@ import { SearchModule } from './search/search.module';
 import { AuthModule } from './auth/auth.module';
 // import { GraphQlBridge, TypeGQLModule } from 'nestjs-type-graphql';
 import { GraphQLModule } from '@nestjs/graphql';
-
 import { typeOrmConfig } from '../typeorm.config';
 import { RoleGuard } from './shared/role.guard';
 import { PageBoxModule } from './pagebox/pagebox.module';
+// import { DatabaseModule } from './database/database.module';
+
 
 @Module({
   imports: [
+    // DatabaseModule,
     CacheModule.register(),
     TypeOrmModule.forRoot(typeOrmConfig),
     ItemsModule,
@@ -47,7 +49,6 @@ import { PageBoxModule } from './pagebox/pagebox.module';
     PageBoxModule,
   ],
   controllers: [
-    // BoxController,
   ],
   providers: [
  //   {provide: APP_FILTER, useClass: HttpErrorFilter },
