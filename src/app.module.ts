@@ -22,11 +22,11 @@ import { typeOrmConfig } from '../typeorm.config';
 import { RoleGuard } from './shared/role.guard';
 import { PageBoxModule } from './pagebox/pagebox.module';
 // import { DatabaseModule } from './database/database.module';
-
+import { MaterialModule } from './material/material.module';
 
 @Module({
   imports: [
-    // DatabaseModule,
+    //DatabaseModule,
     CacheModule.register(),
     TypeOrmModule.forRoot(typeOrmConfig),
     ItemsModule,
@@ -47,6 +47,7 @@ import { PageBoxModule } from './pagebox/pagebox.module';
       context: ({req}) => ({ req }),
     }),
     PageBoxModule,
+    MaterialModule,
   ],
   controllers: [
   ],
